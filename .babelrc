@@ -1,0 +1,17 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "modules": false,
+                "loose": true,
+                "targets": {
+                    "esmodules": true
+                },
+                "shippedProposals": true,
+                "corejs": "3",
+                "useBuiltIns": "usage"
+            }
+        ]
+    ]
+}

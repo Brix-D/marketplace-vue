@@ -1,0 +1,5 @@
+**/assets
+**/dist
+**/dist_new
+**/*.ts
+

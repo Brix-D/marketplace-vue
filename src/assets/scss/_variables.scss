@@ -1,0 +1,24 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+$color-pack: false;
+
+@import '~vuetify/src/styles/settings/_colors.scss';
+
+
+//light theme
+$color-primary: map-get($grey, 'darken-4');
+$color-accent: map-get($deep-purple, 'lighten-4');
+$color-secondary: map-get($blue-grey, 'lighten-3');
+$color-info: map-get($blue, 'darken-2');
+$color-warning: $amber;
+$color-error: map-get($deep-orange, 'accent-4');
+$color-success: $green;
+$color-background-secondary: map-get($indigo, 'lighten-5');
+$color-background: map-get($grey, 'lighten-4');
+
+
+
+//$color-bg: '';
+//$color-text: '';
