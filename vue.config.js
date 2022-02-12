@@ -7,5 +7,13 @@ module.exports = {
             },
         },
     },
+    configureWebpack: {
+        externals: {
+            axios: 'axios',
+            'vue-router': 'VueRouter',
+            vuex: 'vuex',
+            vuetify: 'vuetify',
+        },
+    },
     transpileDependencies: ['vuetify'],
 };

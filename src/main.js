@@ -13,9 +13,16 @@ Vue.use(axios);
 
 Vue.config.productionTip = false;
 
-new Vue({
-    router,
-    store,
-    vuetify,
-    render: (h) => h(App),
-}).$mount('#app');
+let wrapper = window.document.querySelector('.marketplace-wrapper');
+if (wrapper) {
+    let app = window.document.createElement('div');
+    app.setAttribute('id', 'marketplace-app');
+    wrapper.insertBefore(app, wrapper.childNodes[0]);
+
+    new Vue({
+        router,
+        store,
+        vuetify,
+        render: (h) => h(App),
+    }).$mount('#marketplace-app');
+}
