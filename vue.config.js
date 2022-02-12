@@ -1,4 +1,11 @@
 module.exports = {
-  lintOnSave: false,
-
+    lintOnSave: false,
+    css: {
+        loaderOptions: {
+            scss: {
+                additionalData: '@import "@/assets/scss/_variables.scss";',
+            },
+        },
+    },
+    transpileDependencies: ['vuetify'],
 };
