@@ -7,13 +7,14 @@ module.exports = {
             },
         },
     },
+    publicPath: 'sites/servey/modules/custom/marketplace/marketplace-app/',
     configureWebpack: {
-        externals: {
-            axios: 'axios',
-            'vue-router': 'VueRouter',
-            vuex: 'vuex',
-            vuetify: 'vuetify',
-        },
+        // externals: {
+        //     axios: 'axios',
+        //     'vue-router': 'VueRouter',
+        //     vuex: 'vuex',
+        //     vuetify: 'vuetify',
+        // },
     },
     transpileDependencies: ['vuetify'],
 };
