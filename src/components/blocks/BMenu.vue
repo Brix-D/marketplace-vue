@@ -1,45 +1,42 @@
 <template>
-    <v-app-bar flat :color="$vuetify.theme.currentTheme.primary" class="menu">
+    <v-app-bar flat :color="$vuetify.theme.currentTheme.secondaryLight" class="menu">
         <v-container fluid class="pa-0">
             <div class="d-flex">
                 <div class="d-flex">
                     <v-btn
                         href="/"
                         tile
-                        :color="$vuetify.theme.currentTheme.primary"
-                        dark
+                        :color="$vuetify.theme.currentTheme.secondaryLight"
                         depressed
                         min-height="64px"
-                        class="menu__item"
+                        class="menu__item font-weight-regular"
                     >
-                        Главная
+                        Servey
                     </v-btn>
+                </div>
+                <div class="d-flex ml-auto">
                     <v-btn
                         v-for="item in mainMenu"
                         :key="item.name"
                         :to="item.to"
                         tile
-                        :color="$vuetify.theme.currentTheme.primary"
-                        dark
+                        :color="$vuetify.theme.currentTheme.secondaryLight"
                         depressed
                         min-height="64px"
-                        class="menu__item"
+                        class="menu__item font-weight-regular"
                         exact
                     >
                         {{ item.name }}
                     </v-btn>
-                </div>
-                <div class="d-flex ml-auto">
                     <v-btn
                         v-for="item in authMenu"
                         :key="item.name"
                         :to="item.to"
                         tile
-                        :color="$vuetify.theme.currentTheme.primary"
-                        dark
+                        :color="$vuetify.theme.currentTheme.secondaryLight"
                         depressed
                         min-height="64px"
-                        class="menu__item"
+                        class="menu__item font-weight-regular"
                         exact
                     >
                         {{ item.name }}
@@ -57,12 +54,16 @@ export default {
         return {
             mainMenu: [
                 {
-                    name: 'Категории',
+                    name: 'Предложения',
+                    to: { name: 'catalog' },
+                },
+                {
+                    name: 'Запросы',
                     to: { name: 'index' },
                 },
                 {
-                    name: 'Каталог',
-                    to: { name: 'catalog' },
+                    name: 'Заказы',
+                    to: { name: 'index' },
                 },
             ],
             authMenu: [
@@ -87,12 +88,12 @@ export default {
     }
     &__item {
         &.v-btn--active::before {
-            opacity: 0;
+            opacity: 0.1;
         }
         &:not(.v-btn--active) {
             //background-color: $color-background-secondary !important;
             &::before {
-                opacity: 0.05;
+                opacity: 0;
             }
         }
     }

@@ -11,12 +11,14 @@ $color-pack: false;
 $color-primary: map-get($grey, 'darken-4');
 $color-accent: map-get($deep-purple, 'lighten-4');
 $color-secondary: map-get($grey, 'darken-2');
+$color-secondary-light: map-get($grey, 'lighten-3');
 $color-info: map-get($blue, 'darken-2');
 $color-warning: $amber;
 $color-error: map-get($deep-orange, 'accent-4');
 $color-success: $green;
 $color-background-secondary: map-get($indigo, 'lighten-5');
 $color-background: map-get($grey, 'lighten-4');
+$color-white: map-get($shades, 'white');
 
 
 

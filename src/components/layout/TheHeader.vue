@@ -8,7 +8,7 @@
             </v-row>
         </v-container>
         <BMenu class="mt-2" />
-        <v-container fluid class="py-2 mt-2">
+        <v-container fluid class="py-2 mt-2 search">
             <BSearch />
         </v-container>
     </div>
@@ -31,4 +31,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.search {
+    background-color: $color-secondary-light;
+}
+</style>
