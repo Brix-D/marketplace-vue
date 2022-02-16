@@ -1,5 +1,6 @@
 <template>
-    <div class="stub" />
+    <!--    <div class="stub" />-->
+    <div />
 </template>
 
 <script>
