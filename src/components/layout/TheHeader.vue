@@ -8,7 +8,7 @@
             </v-row>
         </v-container>
         <BMenu class="mt-2" />
-        <v-container fluid class="py-0 mt-2">
+        <v-container fluid class="py-2 mt-2">
             <BSearch />
         </v-container>
     </div>
