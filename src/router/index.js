@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import index from '../views/index';
 import catalog from '../views/catalog';
 import testColors from '../views/test-colors';
+const isDev = process.env.NODE_ENV === 'development';
 
 Vue.use(VueRouter);
 
@@ -26,7 +27,7 @@ const routes = [
 
 const router = new VueRouter({
     mode: 'history',
-    base: process.env.BASE_URL,
+    base: !isDev ? process.env.BASE_URL : '',
     routes,
 });
 
