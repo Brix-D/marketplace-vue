@@ -1,3 +1,6 @@
+const isDev = process.env.NODE_ENV === 'development';
+
+console.log('--isDev', isDev);
 module.exports = {
     lintOnSave: false,
     css: {
@@ -7,7 +10,7 @@ module.exports = {
             },
         },
     },
-    publicPath: 'sites/servey/modules/custom/marketplace/marketplace-app/',
+    ...(!isDev && { publicPath: 'sites/servey/modules/custom/marketplace/marketplace-app/' }),
     configureWebpack: {
         // externals: {
         //     axios: 'axios',
