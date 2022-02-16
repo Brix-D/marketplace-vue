@@ -10,7 +10,7 @@ $color-pack: false;
 //light theme
 $color-primary: map-get($grey, 'darken-4');
 $color-accent: map-get($deep-purple, 'lighten-4');
-$color-secondary: map-get($blue-grey, 'lighten-3');
+$color-secondary: map-get($grey, 'darken-2');
 $color-info: map-get($blue, 'darken-2');
 $color-warning: $amber;
 $color-error: map-get($deep-orange, 'accent-4');
