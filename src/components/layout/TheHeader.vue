@@ -12,12 +12,24 @@
                 <div class="d-flex">
                     <div class="d-flex">
                         <v-btn
+                            href="/"
+                            tile
+                            :color="$vuetify.theme.currentTheme.primary"
+                            dark
+                            depressed
+                            min-height="64px"
+                            class="menu__item"
+                        >
+                            Главная
+                        </v-btn>
+                        <v-btn
                             v-for="item in mainMenu"
                             :key="item.name"
                             :to="item.to"
                             tile
                             :color="$vuetify.theme.currentTheme.primary"
                             dark
+                            depressed
                             min-height="64px"
                             class="menu__item"
                             exact
@@ -33,6 +45,7 @@
                             tile
                             :color="$vuetify.theme.currentTheme.primary"
                             dark
+                            depressed
                             min-height="64px"
                             class="menu__item"
                             exact
@@ -78,24 +91,12 @@ export default {
             searchValue: '',
             mainMenu: [
                 {
-                    name: 'Компания',
-                    to: { name: 'index' },
-                },
-                {
-                    name: 'Сотрудники',
+                    name: 'Категории',
                     to: { name: 'index' },
                 },
                 {
                     name: 'Каталог',
                     to: { name: 'catalog' },
-                },
-                {
-                    name: 'Статистика',
-                    to: { name: 'index' },
-                },
-                {
-                    name: 'Настройки',
-                    to: { name: 'index' },
                 },
             ],
             authMenu: [
