@@ -29,9 +29,10 @@ export default {
     },
     created() {
         this.GET_SERVICES();
+        this.TEST_AXIOS();
     },
     methods: {
-        ...mapActions({ GET_SERVICES: 'service/GET_OFFER' }),
+        ...mapActions({ GET_SERVICES: 'service/GET_OFFER', TEST_AXIOS: 'service/TEST_AXIOS' }),
     },
 };
 </script>
