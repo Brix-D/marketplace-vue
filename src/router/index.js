@@ -48,7 +48,7 @@ const routes = [
     },
     {
         path: '/profile',
-        name: 'profile',
+        //name: 'profile',
         children: [
             {
                 path: '',
