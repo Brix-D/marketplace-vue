@@ -1,13 +1,13 @@
 <template>
     <div>
-        <v-container v-if="showSlider" fluid class="pa-0">
+        <v-container v-if="showSlider" fluid class="pa-0 mb-2">
             <v-row align="center" no-gutters>
                 <v-col cols="12">
                     <BSlider />
                 </v-col>
             </v-row>
         </v-container>
-        <BMenu class="mt-2" />
+        <BMenu class="" />
         <v-container v-if="showSearch" fluid class="py-2 mt-2 wrapper">
             <BSearch />
         </v-container>
