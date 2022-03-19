@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import BSlider from '@/components/blocks/BSlider';
-import BMenu from '@/components/blocks/BMenu';
-import BSearch from '@/components/blocks/BSearch';
+import BSlider from '@/components/blocks/header/BSlider';
+import BMenu from '@/components/blocks/header/BMenu';
+import BSearch from '@/components/blocks/header/BSearch';
 export default {
     name: 'TheHeader',
     components: {
