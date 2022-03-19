@@ -8,7 +8,7 @@
                 <p>{{ author }}</p>
             </v-card-subtitle>
             <v-card-text>{{ description }}</v-card-text>
-            <v-card-title class="pt-0">{{ price }}</v-card-title>
+            <v-card-title class="pt-0">{{ numberToPrice(price) }}</v-card-title>
             <v-card-actions class="justify-center pb-4">
                 <v-btn :color="$vuetify.theme.currentTheme.info" dark rounded class="px-10">
                     Купить
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { numberToPrice } from '@/utils';
 export default {
     name: 'BMarketCard',
     props: {
@@ -50,6 +51,9 @@ export default {
             type: String,
             required: true,
         },
+    },
+    methods: {
+        numberToPrice,
     },
 };
 </script>
