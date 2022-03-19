@@ -1,13 +1,17 @@
 <template>
     <!--    <div class="stub" />-->
     <div>
-        <div>offer</div>
+        <TheCatalog> products </TheCatalog>
     </div>
 </template>
 
 <script>
+import TheCatalog from '@/components/layout/TheCatalog';
 export default {
     name: 'CatalogPage',
+    components: {
+        TheCatalog,
+    },
 };
 </script>
 
