@@ -6,9 +6,10 @@ import catalogDemand from '../views/catalog/demand';
 import serviceView from '../views/service/_alias';
 import serviceCreate from '../views/service/create';
 
-import profileSettings from '../views/profile/index';
-import profileFinances from '../views/profile/finances';
-import profileReviews from '../views/profile/reviews';
+import profile from '../views/profile/index';
+import profileSettings from '../views/profile/sections/settings';
+import profileFinances from '../views/profile/sections/finances';
+import profileReviews from '../views/profile/sections/reviews';
 
 import testColors from '../views/test-colors';
 const isDev = process.env.NODE_ENV === 'development';
@@ -47,19 +48,27 @@ const routes = [
     },
     {
         path: '/profile',
-        name: 'profileSettings',
-        component: profileSettings,
+        name: 'profile',
+        children: [
+            {
+                path: '',
+                name: 'profileSettings',
+                component: profileSettings,
+            },
+            {
+                path: 'finances',
+                name: 'profileFinances',
+                component: profileFinances,
+            },
+            {
+                path: 'reviews',
+                name: 'profileReviews',
+                component: profileReviews,
+            },
+        ],
+        component: profile,
     },
-    {
-        path: '/profile/finances',
-        name: 'profileFinances',
-        component: profileFinances,
-    },
-    {
-        path: '/profile/reviews',
-        name: 'profileReviews',
-        component: profileReviews,
-    },
+
     {
         path: '/test-colors',
         name: 'testColors',

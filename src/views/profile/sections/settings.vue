@@ -1,13 +1,10 @@
 <template>
-    <div>
-        <div>profile</div>
-        <router-view />
-    </div>
+    <div>settings</div>
 </template>
 
 <script>
 export default {
-    name: 'ProfileSettingsPage',
+    name: 'ProfileFinancesPage',
     metaInfo() {
         return {
             title: 'Профиль | servey',

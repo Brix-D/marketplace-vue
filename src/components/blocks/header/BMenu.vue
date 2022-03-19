@@ -28,19 +28,47 @@
                     >
                         {{ item.name }}
                     </v-btn>
-                    <v-btn
-                        v-for="item in authMenu"
-                        :key="item.name"
-                        :to="item.to"
-                        tile
-                        :color="$vuetify.theme.currentTheme.secondaryLight"
-                        depressed
-                        min-height="64px"
-                        class="menu__item font-weight-regular"
-                        exact
-                    >
-                        {{ item.name }}
-                    </v-btn>
+                    <template v-if="isLogged">
+                        <v-btn
+                            key="profile"
+                            :to="{ name: 'profileSettings' }"
+                            tile
+                            :color="$vuetify.theme.currentTheme.secondaryLight"
+                            depressed
+                            min-height="64px"
+                            class="menu__item font-weight-regular"
+                        >
+                            Профиль
+                        </v-btn>
+                        <v-btn
+                            key="logout"
+                            href="/user/logout"
+                            tile
+                            :color="$vuetify.theme.currentTheme.secondaryLight"
+                            depressed
+                            min-height="64px"
+                            class="menu__item font-weight-regular"
+                            exact
+                        >
+                            Выход
+                        </v-btn>
+                    </template>
+                    <template v-else>
+                        <v-btn
+                            v-for="item in authMenu"
+                            :key="item.name"
+                            :href="item.href"
+                            tile
+                            :color="$vuetify.theme.currentTheme.secondaryLight"
+                            depressed
+                            min-height="64px"
+                            class="menu__item font-weight-regular"
+                            exact
+                        >
+                            <!--                        -->
+                            {{ item.name }}
+                        </v-btn>
+                    </template>
                 </div>
             </div>
         </v-container>
@@ -52,6 +80,7 @@ export default {
     name: 'BMenu',
     data() {
         return {
+            isLogged: true,
             mainMenu: [
                 {
                     name: 'Предложения',
@@ -68,12 +97,14 @@ export default {
             ],
             authMenu: [
                 {
-                    name: 'Профиль',
-                    to: { name: 'profileSettings' },
+                    name: 'Вход',
+                    //to: { name: 'profileSettings' },
+                    href: '/user/login',
                 },
                 {
-                    name: 'Выход',
-                    to: { name: 'index' },
+                    name: 'Регистрация',
+                    //to: { name: 'index' },
+                    href: '/user/register',
                 },
             ],
         };
