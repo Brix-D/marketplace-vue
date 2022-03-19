@@ -1,6 +1,8 @@
 <template>
     <!--    <div class="stub" />-->
-    <div>offer</div>
+    <div>
+        <div>offer</div>
+    </div>
 </template>
 
 <script>

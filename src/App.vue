@@ -1,9 +1,9 @@
 <template>
     <div id="app">
         <v-app dark class="application__background">
-            <TheHeader />
+            <TheHeader :show-slider="isCatalogPage" :show-search="isCatalogPage" />
             <v-main>
-                <v-container>
+                <v-container fluid>
                     <router-view />
                 </v-container>
             </v-main>
@@ -19,6 +19,11 @@ import TheHeader from '@/components/layout/TheHeader';
 export default {
     components: {
         TheHeader,
+    },
+    computed: {
+        isCatalogPage() {
+            return this.$route.name === 'catalog' || this.$route.name === 'catalogDemand';
+        },
     },
 };
 </script>
