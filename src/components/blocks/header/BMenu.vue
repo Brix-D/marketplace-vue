@@ -80,6 +80,7 @@ export default {
     name: 'BMenu',
     data() {
         return {
+            // TODO получить статус авторизации с бека
             isLogged: true,
             mainMenu: [
                 {
