@@ -1,7 +1,8 @@
 <template>
     <div id="app">
         <v-app dark class="application__background">
-            <TheHeader :show-slider="isCatalogPage" :show-search="isCatalogPage" />
+            <TheHeader :show-search="isCatalogPage" />
+            <!--            :show-slider="isCatalogPage"-->
             <v-main>
                 <v-container fluid>
                     <router-view />
