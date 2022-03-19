@@ -6,12 +6,12 @@
         class="rounded-lg d-flex flex-column"
         height="100%"
     >
-        <v-card-title>{{ title }}</v-card-title>
+        <v-card-title class="card__title">{{ title }}</v-card-title>
         <v-card-subtitle class="card__subtitle">
             <p>{{ category }}</p>
             <p>{{ author }}</p>
         </v-card-subtitle>
-        <v-card-text>{{ description }}</v-card-text>
+        <v-card-text class="card__description pb-0 mb-4">{{ description }}</v-card-text>
         <v-card-title class="pt-0 mt-auto">{{ numberToPrice(price) }}</v-card-title>
         <v-card-actions class="justify-center pb-4">
             <v-btn :color="$vuetify.theme.currentTheme.info" dark rounded class="px-10">
@@ -67,6 +67,12 @@ export default {
         p {
             margin-bottom: 0;
         }
+    }
+    &__title {
+        word-break: break-word;
+    }
+    &__description {
+        @include text-overflow-column(4);
     }
 }
 </style>

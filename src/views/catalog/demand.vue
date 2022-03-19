@@ -1,10 +1,32 @@
 <template>
-    <div>demand</div>
+    <div>
+        <TheCatalog>
+            <BServiceList :items="services" />
+        </TheCatalog>
+    </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+import TheCatalog from '@/components/layout/TheCatalog';
+import BServiceList from '@/components/blocks/catalog/BServiceList';
 export default {
     name: 'CatalogDemandPage',
+    components: {
+        TheCatalog,
+        BServiceList,
+    },
+    computed: {
+        ...mapState({
+            services: (state) => state.service.demand,
+        }),
+    },
+    created() {
+        this.GET_SERVICES();
+    },
+    methods: {
+        ...mapActions({ GET_SERVICES: 'service/GET_DEMAND' }),
+    },
 };
 </script>
 

@@ -1,0 +1,8 @@
+@mixin text-overflow-column($count-column: 2) {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $count-column;
+}
