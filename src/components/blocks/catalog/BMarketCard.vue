@@ -3,7 +3,17 @@
         <!--        min-width="200"-->
         <v-card :color="$vuetify.theme.currentTheme.white" flat class="rounded-lg">
             <v-card-title>{{ title }}</v-card-title>
-            <v-card-subtitle> {{ category }} </v-card-subtitle>
+            <v-card-subtitle class="card__subtitle">
+                <p>{{ category }}</p>
+                <p>{{ author }}</p>
+            </v-card-subtitle>
+            <v-card-text>{{ description }}</v-card-text>
+            <v-card-title class="pt-0">{{ price }}</v-card-title>
+            <v-card-actions class="justify-center pb-4">
+                <v-btn :color="$vuetify.theme.currentTheme.info" dark rounded class="px-10">
+                    Купить
+                </v-btn>
+            </v-card-actions>
         </v-card>
     </div>
 </template>
@@ -44,4 +54,12 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.card {
+    &__subtitle {
+        p {
+            margin-bottom: 0;
+        }
+    }
+}
+</style>

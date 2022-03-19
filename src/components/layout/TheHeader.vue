@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-container v-if="showSlider" fluid class="pa-0">
-            <v-row align="center">
+            <v-row align="center" no-gutters>
                 <v-col cols="12">
                     <BSlider />
                 </v-col>
