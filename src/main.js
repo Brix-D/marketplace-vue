@@ -4,11 +4,12 @@ require('dotenv').config();
 
 import App from './App.vue';
 import router from './router';
-
+import VueMeta from 'vue-meta';
 import store from './store';
 import vuetify from './plugins/vuetify';
 import { axios } from '@/plugins/axios';
 
+Vue.use(VueMeta);
 Vue.use({
     install(Vue) {
         Vue.prototype.$axios = axios;

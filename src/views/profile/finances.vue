@@ -5,6 +5,11 @@
 <script>
 export default {
     name: 'ProfileFinancesPage',
+    metaInfo() {
+        return {
+            title: 'Финансы | servey',
+        };
+    },
 };
 </script>
 

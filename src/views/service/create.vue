@@ -5,6 +5,11 @@
 <script>
 export default {
     name: 'ServiceCreate',
+    metaInfo() {
+        return {
+            title: 'Добавить услугу | servey',
+        };
+    },
 };
 </script>
 

@@ -11,6 +11,11 @@
 <script>
 export default {
     name: 'ServiceView',
+    metaInfo() {
+        return {
+            title: `${this.$route.params.alias} | servey`,
+        };
+    },
 };
 </script>
 

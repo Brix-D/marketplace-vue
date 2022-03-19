@@ -11,8 +11,12 @@
 import { mapState, mapActions } from 'vuex';
 import TheCatalog from '@/components/layout/TheCatalog';
 import BServiceList from '@/components/blocks/catalog/BServiceList';
+
 export default {
     name: 'CatalogPage',
+    metaInfo: {
+        title: 'Каталог услуг | servey',
+    },
     components: {
         TheCatalog,
         BServiceList,

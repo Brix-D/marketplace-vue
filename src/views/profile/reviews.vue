@@ -5,6 +5,11 @@
 <script>
 export default {
     name: 'ProfileReviewsPage',
+    metaInfo() {
+        return {
+            title: 'Отзывы | servey',
+        };
+    },
 };
 </script>
 

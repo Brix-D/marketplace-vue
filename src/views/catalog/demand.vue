@@ -12,6 +12,9 @@ import TheCatalog from '@/components/layout/TheCatalog';
 import BServiceList from '@/components/blocks/catalog/BServiceList';
 export default {
     name: 'CatalogDemandPage',
+    metaInfo: {
+        title: 'Каталог потребностей | servey',
+    },
     components: {
         TheCatalog,
         BServiceList,

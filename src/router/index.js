@@ -26,16 +26,19 @@ const routes = [
         path: '/catalog',
         name: 'catalog',
         component: catalog,
+        //meta: { title: 'Каталог услуг | ' + appName },
     },
     {
         path: '/catalog/demand',
         name: 'catalogDemand',
         component: catalogDemand,
+        //meta: { title: 'Каталог потребностей | ' + appName },
     },
     {
         path: '/service/:alias',
         name: 'serviceView',
         component: serviceView,
+        //meta: { title: `${} | ` + appName },
     },
     {
         path: '/service/create',
