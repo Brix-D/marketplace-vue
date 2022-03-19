@@ -59,7 +59,7 @@ export default {
                 },
                 {
                     name: 'Запросы',
-                    to: { name: 'index' },
+                    to: { name: 'catalogDemand' },
                 },
                 {
                     name: 'Заказы',
@@ -69,7 +69,7 @@ export default {
             authMenu: [
                 {
                     name: 'Профиль',
-                    to: { name: 'index' },
+                    to: { name: 'profileSettings' },
                 },
                 {
                     name: 'Выход',
