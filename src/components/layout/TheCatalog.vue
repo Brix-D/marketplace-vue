@@ -5,29 +5,20 @@
                 <slot />
             </div>
         </v-col>
-        <v-col v-if="$vuetify.breakpoint.mdAndUp" md="3">
-            <aside class="wrapper rounded-lg pa-3">
-                <div class="catalog__filters">{{ filtersList }}</div>
-            </aside>
+        <v-col v-if="$vuetify.breakpoint.mdAndUp" md="3" class="d-flex">
+            <div class="wrapper rounded-lg pa-3 d-flex flex-column flex-grow-1">
+                <BFilters />
+            </div>
         </v-col>
     </v-row>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
+import BFilters from '@/components/blocks/catalog/BFilters';
+
 export default {
     name: 'TheCatalog',
-    computed: {
-        ...mapState({
-            filtersList: (state) => state.filters.items,
-        }),
-    },
+    components: { BFilters },
 };
 </script>
-
-<style scoped lang="scss">
-.catalog {
-    &__filters {
-    }
-}
-</style>

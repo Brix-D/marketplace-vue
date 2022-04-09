@@ -14,7 +14,7 @@
         <v-card-text class="card__description pb-0 mb-4">{{ description }}</v-card-text>
         <v-card-title class="pt-0 mt-auto">{{ numberToPrice(price) }}</v-card-title>
         <v-card-actions class="justify-center pb-4">
-            <v-btn :color="$vuetify.theme.currentTheme.info" dark rounded class="px-10">
+            <v-btn :color="$vuetify.theme.currentTheme.info" dark class="px-10 rounded-lg">
                 Купить
             </v-btn>
         </v-card-actions>

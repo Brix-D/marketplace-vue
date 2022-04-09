@@ -14,6 +14,36 @@
           "variationId": 2
         }
       ]
+    },
+    {
+      "groupId": 2,
+      "alias": "city",
+      "name": "Город",
+      "variations": [
+        {
+          "name": "Балаково",
+          "variationId": 1
+        },
+        {
+          "name": "Саратов",
+          "variationId": 2
+        }
+      ]
+    },
+    {
+      "groupId": 3,
+      "alias": "author",
+      "name": "Автор объявления",
+      "variations": [
+        {
+          "name": "Дмитрий Шляхта",
+          "variationId": 1
+        },
+        {
+          "name": "Дмитрий Расулов",
+          "variationId": 2
+        }
+      ]
     }
   ],
   "price": {

@@ -2,13 +2,13 @@
     <!--    <div class="stub" />-->
     <div>
         <TheCatalog>
-            <BServiceList :items="services" />
+            <BServiceList :items="FILTERED_SERVICES(services)" />
         </TheCatalog>
     </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import TheCatalog from '@/components/layout/TheCatalog';
 import BServiceList from '@/components/blocks/catalog/BServiceList';
 
@@ -21,14 +21,12 @@ export default {
         TheCatalog,
         BServiceList,
     },
-    // data() {
-    //     return {
-    //         //services: [],
-    //     };
-    // },
     computed: {
         ...mapState({
             services: (state) => state.catalog.items,
+        }),
+        ...mapGetters({
+            FILTERED_SERVICES: 'filters/FILTERED_SERVICES',
         }),
     },
 
