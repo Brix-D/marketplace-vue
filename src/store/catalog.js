@@ -3,25 +3,30 @@ import demand from './fixtures/demand.json';
 import { axios } from '@/plugins/axios';
 
 export const state = () => ({
-    offer: [],
-    demand: [],
+    items: [],
 });
 
 export const mutations = {
-    SET_OFFER(state, payload) {
-        state.offer = [...payload];
-    },
-    SET_DEMAND(state, payload) {
-        state.demand = [...payload];
+    SET_CATALOG(state, payload) {
+        state.items = [...payload];
     },
 };
 
 export const actions = {
-    async GET_OFFER({ commit }) {
-        commit('SET_OFFER', offer);
-    },
-    async GET_DEMAND({ commit }) {
-        commit('SET_DEMAND', demand);
+    async GET_CATALOG({ commit }, { type }) {
+        switch (type) {
+            case 'offer': {
+                commit('SET_CATALOG', offer);
+                break;
+            }
+            case 'demand': {
+                commit('SET_CATALOG', demand);
+                break;
+            }
+            default: {
+                throw 'Incorrect Catalog Type';
+            }
+        }
     },
     // async TEST_AXIOS({ commit }) {
     //     console.log('this', this);

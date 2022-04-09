@@ -28,16 +28,19 @@ export default {
     // },
     computed: {
         ...mapState({
-            services: (state) => state.service.offer,
+            services: (state) => state.catalog.items,
         }),
     },
-    created() {
-        this.GET_SERVICES();
+
+    async created() {
+        await this.GET_CATALOG({ type: 'offer' });
+        await this.GET_FILTERS();
         //this.TEST_AXIOS();
     },
     methods: {
         ...mapActions({
-            GET_SERVICES: 'service/GET_OFFER',
+            GET_CATALOG: 'catalog/GET_CATALOG',
+            GET_FILTERS: 'filters/GET_FILTERS',
             //TEST_AXIOS: 'service/TEST_AXIOS'
         }),
     },

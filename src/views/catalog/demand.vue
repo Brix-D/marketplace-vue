@@ -21,14 +21,14 @@ export default {
     },
     computed: {
         ...mapState({
-            services: (state) => state.service.demand,
+            services: (state) => state.catalog.items,
         }),
     },
-    created() {
-        this.GET_SERVICES();
+    async created() {
+        await this.GET_CATALOG({ type: 'demand' });
     },
     methods: {
-        ...mapActions({ GET_SERVICES: 'service/GET_DEMAND' }),
+        ...mapActions({ GET_CATALOG: 'catalog/GET_CATALOG' }),
     },
 };
 </script>

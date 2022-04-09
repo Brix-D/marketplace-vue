@@ -22,14 +22,6 @@ export default {
             filtersList: (state) => state.filters.items,
         }),
     },
-    async created() {
-        await this.GET_FILTERS();
-    },
-    methods: {
-        ...mapActions({
-            GET_FILTERS: 'filters/GET_FILTERS',
-        }),
-    },
 };
 </script>
 
