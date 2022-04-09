@@ -6,16 +6,30 @@
             </div>
         </v-col>
         <v-col v-if="$vuetify.breakpoint.mdAndUp" md="3">
-            <div class="wrapper rounded-lg pa-3">
-                <div class="catalog__filters">filters</div>
-            </div>
+            <aside class="wrapper rounded-lg pa-3">
+                <div class="catalog__filters">{{ filtersList }}</div>
+            </aside>
         </v-col>
     </v-row>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 export default {
     name: 'TheCatalog',
+    computed: {
+        ...mapState({
+            filtersList: (state) => state.filters.items,
+        }),
+    },
+    async created() {
+        await this.GET_FILTERS();
+    },
+    methods: {
+        ...mapActions({
+            GET_FILTERS: 'filters/GET_FILTERS',
+        }),
+    },
 };
 </script>
 

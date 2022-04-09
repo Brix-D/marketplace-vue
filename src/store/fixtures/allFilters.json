@@ -1,0 +1,23 @@
+{
+  "groups": [
+    {
+      "groupId": 1,
+      "alias": "category",
+      "name": "Категория",
+      "variations": [
+        {
+          "name": "Информационные технологии",
+          "variationId": 1
+        },
+        {
+          "name": "Дизайн",
+          "variationId": 2
+        }
+      ]
+    }
+  ],
+  "price": {
+    "maxPrice": 18000,
+    "minPrice": 15000
+  }
+}
