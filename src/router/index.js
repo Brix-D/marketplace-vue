@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import index from '../views/index';
 import catalog from '../views/catalog';
 import catalogDemand from '../views/catalog/demand';
-import serviceView from '../views/service/_alias';
+import serviceView from '../views/service/view';
 import serviceCreate from '../views/service/create';
 
 import profile from '../views/profile/index';
