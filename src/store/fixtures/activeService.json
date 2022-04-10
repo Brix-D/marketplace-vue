@@ -4,6 +4,54 @@
     "title": "Создание маркетплейса услуг",
     "category": "Дизайн",
     "author": "Дмитрий Шляхта",
+    "date": "2022-04-10",
     "price": 17000,
-    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis fugiat nobis quo sequi voluptates."
+    "pictures": [
+        {
+            "id": 1,
+            "path": "https://quasa.io/storage/images/news/UEKzKM3PAGXDeq6xWOv0Nz8bbgHvFQXkdSdI57OE.jpg",
+            "name": "marketplace"
+        },
+        {
+            "id": 2,
+            "path": "https://via.placeholder.com/1200x800.webp",
+            "name": "placeholder"
+        },
+        {
+            "id": 3,
+            "path": "https://via.placeholder.com/800x800/0000FF.webp",
+            "name": "placeholder2"
+        },
+        {
+            "id": 4,
+            "path": "https://via.placeholder.com/800x800/0000FF.webp",
+            "name": "placeholder2"
+        },
+        {
+            "id": 5,
+            "path": "https://via.placeholder.com/800x800/0000FF.webp",
+            "name": "placeholder2"
+        },
+        {
+            "id": 6,
+            "path": "https://via.placeholder.com/800x800/0000FF.webp",
+            "name": "placeholder2"
+        },
+        {
+            "id": 7,
+            "path": "https://via.placeholder.com/800x800/0000FF.webp",
+            "name": "placeholder2"
+        },
+        {
+            "id": 8,
+            "path": "https://via.placeholder.com/1200x400/0000FF.webp",
+            "name": "placeholder2"
+        },
+        {
+            "id": 9,
+            "path": "https://via.placeholder.com/600x1200/0000FF.webp",
+            "name": "placeholder2"
+        }
+    ],
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis fugiat nobis quo sequi voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis fugiat nobis quo sequi voluptates. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis fugiat nobis quo sequi voluptates."
 }

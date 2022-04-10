@@ -36,15 +36,15 @@ const routes = [
         //meta: { title: 'Каталог потребностей | ' + appName },
     },
     {
+        path: '/service/create',
+        name: 'serviceCreate',
+        component: serviceCreate,
+    },
+    {
         path: '/service/:alias',
         name: 'serviceView',
         component: serviceView,
         //meta: { title: `${} | ` + appName },
-    },
-    {
-        path: '/service/create',
-        name: 'serviceCreate',
-        component: serviceCreate,
     },
     {
         path: '/profile',
