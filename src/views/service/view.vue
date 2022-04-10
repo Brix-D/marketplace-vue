@@ -1,10 +1,5 @@
 <template>
     <div>
-        <!--        {{ $route.params.alias }}-->
-        <!--        <router-link :to="{ name: 'serviceView', params: { alias: 'crop_sheep' } }">-->
-        <!--            crop_sheep-->
-        <!--        </router-link>-->
-        <!--        <input v-model="service.title" type="text" />-->
         <v-container class="wrapper rounded-lg pa-4 d-flex flex-column">
             <h1
                 :class="{
