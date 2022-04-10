@@ -14,7 +14,7 @@
                         :color="$vuetify.theme.currentTheme.info"
                         :background-color="$vuetify.theme.currentTheme.secondaryLight"
                     >
-                        <v-tab :ripple="false">Обертка</v-tab>
+                        <v-tab :ripple="false">Описание</v-tab>
                         <v-tab :ripple="false">Техкарта</v-tab>
                         <v-tab :ripple="false">Финансы</v-tab>
                     </v-tabs>
