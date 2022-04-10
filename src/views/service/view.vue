@@ -5,8 +5,15 @@
         <!--            crop_sheep-->
         <!--        </router-link>-->
         <!--        <input v-model="service.title" type="text" />-->
-        <v-container class="wrapper rounded-lg pa-4">
-            <h1 class="text-h3">{{ service.title }}</h1>
+        <v-container class="wrapper rounded-lg pa-4 d-flex flex-column">
+            <h1
+                :class="{
+                    'text-h3': !$vuetify.breakpoint.mobile,
+                    'text-h4': $vuetify.breakpoint.mobile,
+                }"
+            >
+                {{ service.title }}
+            </h1>
             <h3 class="text-subtitle-1 mt-4 service__subtitle">{{ service.category }}</h3>
             <PicturesCarousel
                 v-if="!!service.pictures.length"
@@ -14,11 +21,28 @@
                 class="mt-4"
             />
             <div class="mt-4 service__description text-body-1">{{ service.description }}</div>
-            <div class="service__price text-h2">{{ numberToPrice(service.price) }}</div>
-            <div class="d-flex justify-space-between mt-4">
+            <div class="service__price mt-4">
+                <span class="service__price-caption text-subtitle-1">Стоимость:</span>
+                <span class="text-h3 service__price-value">{{ numberToPrice(service.price) }}</span>
+            </div>
+            <div
+                class="d-flex justify-space-between mt-4"
+                :class="{ 'flex-column': $vuetify.breakpoint.mobile }"
+            >
                 <p class="service__author text-caption">Автор объявления: {{ service.author }}</p>
                 <p class="service__date text-caption">Объявление размещено: {{ service.date }}</p>
             </div>
+            <v-btn
+                :color="$vuetify.theme.currentTheme.info"
+                dark
+                large
+                depressed
+                class="rounded-lg"
+                :class="{ 'align-self-center px-10 service__button': !$vuetify.breakpoint.mobile }"
+                :block="$vuetify.breakpoint.mobile"
+            >
+                Заказать
+            </v-btn>
         </v-container>
     </div>
 </template>
@@ -65,10 +89,21 @@ export default {
         font-size: 1.3rem !important;
     }
     &__price {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+    &__price-caption {
+        font-size: 1.4rem !important;
+    }
+    &__price-value {
     }
     &__author {
     }
     &__date {
+    }
+    &__button {
+        //font-size: 1.2rem !important;
     }
 }
 </style>
