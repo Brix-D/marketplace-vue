@@ -1,5 +1,8 @@
 <template>
     <div>
+        <BServiceTemplate>
+            <template #sidebar>s</template>
+        </BServiceTemplate>
         <!--        {{ $route.params.alias }}-->
         <!--        <router-link :to="{ name: 'serviceView', params: { alias: 'crop_sheep' } }">-->
         <!--            crop_sheep-->
@@ -10,9 +13,13 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import BServiceTemplate from '@/components/blocks/service/BServiceTemplate';
 
 export default {
     name: 'ServiceView',
+    components: {
+        BServiceTemplate,
+    },
     computed: {
         ...mapState({
             service: (state) => state.activeService.item,
