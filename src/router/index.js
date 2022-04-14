@@ -10,6 +10,7 @@ import profile from '../views/profile/index';
 import profileSettings from '../views/profile/sections/settings';
 import profileFinances from '../views/profile/sections/finances';
 import profileReviews from '../views/profile/sections/reviews';
+import collectServices from '../views/collect-services';
 
 import testColors from '../views/test-colors';
 const isDev = process.env.NODE_ENV === 'development';
@@ -41,6 +42,11 @@ const routes = [
         component: serviceCreate,
     },
     {
+        path: '/service/collect',
+        name: 'collectServices',
+        component: collectServices,
+    },
+    {
         path: '/service/:alias',
         name: 'serviceView',
         component: serviceView,
@@ -68,7 +74,6 @@ const routes = [
         ],
         component: profile,
     },
-
     {
         path: '/test-colors',
         name: 'testColors',
