@@ -82,8 +82,13 @@ export default {
         await this.getServices();
     },
     methods: {
-        onSave() {
-            this.$axios.post(
+        async onSave() {
+            const csrf = await this.$axios.get('/session/token', {
+                baseURL: 'https://servey.ru',
+                withCredentials: true,
+            });
+            console.log(csrf);
+            await this.$axios.post(
                 '/entity/commerce_product',
                 {
                     title: [
@@ -120,6 +125,9 @@ export default {
                 {
                     baseURL: 'https://servey.ru',
                     withCredentials: true,
+                    headers: {
+                        'X-CSRF-Token': csrf.data,
+                    },
                 }
             );
         },
@@ -132,11 +140,13 @@ export default {
             });
             console.log(response);
             response.data.forEach((service) => {
-                if (service.field_tip[0].value === 'Потребность') {
-                    this.demand.push(service);
-                }
-                if (service.field_tip[0].value === 'Предложение') {
-                    this.offer.push(service);
+                if (!!service.field_tip) {
+                    if (service.field_tip[0].value === 'Потребность') {
+                        this.demand.push(service);
+                    }
+                    if (service.field_tip[0].value === 'Предложение') {
+                        this.offer.push(service);
+                    }
                 }
             });
         },
