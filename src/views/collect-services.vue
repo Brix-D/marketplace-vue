@@ -141,11 +141,15 @@ export default {
             console.log(response);
             response.data.forEach((service) => {
                 if (!!service.field_tip) {
-                    if (service.field_tip[0].value === 'Потребность') {
-                        this.demand.push(service);
-                    }
-                    if (service.field_tip[0].value === 'Предложение') {
-                        this.offer.push(service);
+                    if (!!service.field_tip[0]) {
+                        if (!!service.field_tip[0].value) {
+                            if (service.field_tip[0].value === 'Потребность') {
+                                this.demand.push(service);
+                            }
+                            if (service.field_tip[0].value === 'Предложение') {
+                                this.offer.push(service);
+                            }
+                        }
                     }
                 }
             });
