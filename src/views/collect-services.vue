@@ -16,9 +16,6 @@
                         <!--                        item-value="value"-->
                         <!--                        return-object-->
                         <!--                    />-->
-                        <!--                    <v-btn :color="$vuetify.theme.currentTheme.info" dark @click="onSave">-->
-                        <!--                        Сохранить-->
-                        <!--                    </v-btn>-->
                         <v-text-field
                             v-model="company"
                             label="Название компании"
@@ -32,26 +29,41 @@
                 <div class="services d-flex justify-space-between mt-4">
                     <NewServiceList
                         :items="NEW_DEMAND"
+                        type="newDemand"
                         title="По этим потребностям вам прийдет уведомление"
                         :existing-items="EXISTING_DEMAND"
-                        @select="onSelectService($event, 'newDemand')"
-                        @delete="onDeleteService($event, 'newDemand')"
                     />
                     <NewServiceList
                         :items="NEW_OFFER"
+                        type="newOffer"
                         title="Эти предложения будут видны всем пользователям"
                         :existing-items="EXISTING_OFFER"
+                    />
+                    <!--                    @select="onSelectService($event, 'newDemand')"
+                        @delete="onDeleteService($event, 'newDemand')"
+                        @add="onAddService('newDemand')"
+                        @edit="onEditService($event, 'newDemand')"
                         @select="onSelectService($event, 'newOffer')"
                         @delete="onDeleteService($event, 'newOffer')"
-                    />
+                        @add="onAddService('newOffer')"
+                        @edit="onEditService($event, 'newOffer')"-->
                 </div>
+                <v-btn
+                    :color="$vuetify.theme.currentTheme.info"
+                    dark
+                    large
+                    class="rounded-lg"
+                    @click="onSave"
+                >
+                    Сохранить услуги
+                </v-btn>
             </v-col>
         </v-row>
     </div>
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import NewServiceList from '@/components/blocks/service/NewServiceList';
 
 export default {
@@ -62,8 +74,9 @@ export default {
             company: '',
             email: '',
             phone: '',
-            title: '',
-            description: '',
+            // title: '',
+            // description: '',
+
             // type: {},
             // types: [
             //     { name: 'Потребность', value: 'Потребность' },
@@ -83,21 +96,11 @@ export default {
         await this.getServices();
     },
     methods: {
-        ...mapMutations({
-            ADD_SERVICE: 'newServices/ADD_SERVICE',
-            DELETE_SERVICE: 'newServices/DELETE_SERVICE',
-        }),
         ...mapActions({
             GET_SERVICES: 'newServices/GET_SERVICES',
             CREATE_SERVICE: 'newServices/CREATE_SERVICE',
         }),
-        onSelectService(event, type) {
-            console.log('service', event, 'typeCatalog', type);
-            this.ADD_SERVICE({ listName: type, service: event.value });
-        },
-        onDeleteService(index, type) {
-            this.DELETE_SERVICE({ listName: type, index });
-        },
+
         async onSave() {
             // await this.CREATE_SERVICE({
             //     title: this.title,

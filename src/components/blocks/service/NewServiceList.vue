@@ -3,7 +3,11 @@
         <h3 class="h4">{{ title }}</h3>
         <div class="mt-4">
             <v-list v-if="!!items.length" two-line>
-                <v-list-item v-for="(service, index) in items" :key="service.id">
+                <v-list-item
+                    v-for="(service, index) in items"
+                    :key="service.id"
+                    @click="onEditService(index)"
+                >
                     <!--                                <v-list-item-avatar>-->
                     <!--                                    <v-img :src="service.field_photo" />-->
                     <!--                                </v-list-item-avatar>-->
@@ -33,12 +37,28 @@
                 class="mt-4"
                 @change="onSelectService"
             />
+            <v-btn
+                :color="$vuetify.theme.currentTheme.info"
+                large
+                :ripple="false"
+                depressed
+                dark
+                class="rounded-lg"
+                @click="onAddService"
+            >
+                Добавить услугу
+            </v-btn>
         </div>
+        <AddService v-model="modal.open" :title="modal.title" :item="modal.item" :type="type" />
     </div>
 </template>
 <script>
+import { mapMutations } from 'vuex';
+import AddService from '@/components/blocks/modal/AddService';
+
 export default {
     name: 'NewServiceList',
+    components: { AddService },
     props: {
         title: {
             type: String,
@@ -52,28 +72,54 @@ export default {
             type: Array,
             required: true,
         },
+        type: {
+            type: String,
+            required: true,
+        },
     },
     data() {
         return {
             selectedSuggestion: {},
+            modal: {
+                open: false,
+                title: '',
+                item: {},
+            },
         };
     },
     computed: {
         suggestionList() {
             return this.existingItems.map((item) => {
-                return { text: item.title, value: item };
+                if (!this.items.some((selectedItem) => selectedItem.id === item.id)) {
+                    return { text: item.title, value: item };
+                }
             });
         },
     },
     methods: {
+        ...mapMutations({
+            ADD_SERVICE: 'newServices/ADD_SERVICE',
+            DELETE_SERVICE: 'newServices/DELETE_SERVICE',
+        }),
         onSelectService(event) {
             if (!!event) {
-                this.$emit('select', event);
+                this.ADD_SERVICE({ listName: this.type, service: event.value });
             }
             this.selectedSuggestion = {};
         },
         onDeleteService(index) {
-            this.$emit('delete', index);
+            this.DELETE_SERVICE({ listName: this.type, index });
+        },
+        onAddService(type) {
+            this.modal.title = 'Добавить услугу';
+            this.modal.open = true;
+            this.modal.item = {};
+            // this.modal.type = type;
+        },
+        onEditService(index, type) {
+            this.modal.title = 'Редактировать услугу';
+            this.modal.open = true;
+            //this.modal.item = this.this.modal.type = type;
         },
     },
 };
