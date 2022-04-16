@@ -6,7 +6,7 @@
                 <v-list-item
                     v-for="(service, index) in items"
                     :key="service.id"
-                    @click="onEditService(service)"
+                    @click="onEditService(service, index)"
                 >
                     <!--                                <v-list-item-avatar>-->
                     <!--                                    <v-img :src="service.field_photo" />-->
@@ -91,6 +91,8 @@ export default {
                 open: false,
                 title: '',
                 item: {},
+                itemIndex: null,
+                isEdit: null,
             },
         };
     },
@@ -107,6 +109,7 @@ export default {
         ...mapMutations({
             ADD_SERVICE: 'newServices/ADD_SERVICE',
             DELETE_SERVICE: 'newServices/DELETE_SERVICE',
+            EDIT_SERVICE: 'newServices/EDIT_SERVICE',
         }),
         onSelectService(event) {
             if (!!event) {
@@ -119,16 +122,34 @@ export default {
         },
         onAddService() {
             this.modal.title = 'Добавить услугу';
-            this.modal.item = {};
+            this.modal.item = {
+                id: performance.now(),
+                title: '',
+                description: '',
+            };
+            this.modal.isEdit = false;
             this.modal.open = true;
         },
-        onEditService(item) {
+        onEditService(item, index) {
             this.modal.item = item;
             this.modal.title = 'Редактировать услугу';
+            this.modal.isEdit = true;
+            this.modal.itemIndex = index;
             this.modal.open = true;
         },
         onSaveItem(event) {
             console.log('saved item', event);
+            if (this.modal.isEdit) {
+                this.EDIT_SERVICE({
+                    listName: this.type,
+                    service: event,
+                    index: this.modal.itemIndex,
+                });
+            } else {
+                this.ADD_SERVICE({ listName: this.type, service: event });
+            }
+            this.modal.isEdit = null;
+            this.modal.itemIndex = null;
         },
     },
 };

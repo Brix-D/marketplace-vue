@@ -17,6 +17,9 @@ export const mutations = {
     ADD_SERVICE(state, { listName, service }) {
         state[listName].push(service);
     },
+    EDIT_SERVICE(state, { listName, service, index }) {
+        state[listName][index] = { ...service };
+    },
     DELETE_SERVICE(state, { listName, index }) {
         state[listName].splice(index, 1);
     },
