@@ -138,7 +138,6 @@ export default {
             this.modal.open = true;
         },
         onSaveItem(event) {
-            console.log('saved item', event);
             if (this.modal.isEdit) {
                 this.EDIT_SERVICE({
                     listName: this.type,

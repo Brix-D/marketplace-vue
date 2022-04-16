@@ -99,12 +99,33 @@ export default {
             CREATE_SERVICE: 'newServices/CREATE_SERVICE',
         }),
 
+        isServiceExists(catalog, service) {
+            return catalog.some((existingService) => {
+                return existingService.id === service.id;
+            });
+        },
+
         async onSave() {
-            // await this.CREATE_SERVICE({
-            //     title: this.title,
-            //     description: this.description,
-            //     type: this.type.value,
-            // });
+            for (let newService of this.NEW_DEMAND) {
+                if (!this.isServiceExists(this.EXISTING_DEMAND, newService)) {
+                    await this.CREATE_SERVICE({
+                        title: newService.title,
+                        description: newService.description,
+                        type: 'Потребность',
+                    });
+                }
+            }
+
+            for (let newService of this.NEW_OFFER) {
+                if (!this.isServiceExists(this.EXISTING_OFFER, newService)) {
+                    await this.CREATE_SERVICE({
+                        title: newService.title,
+                        description: newService.description,
+                        type: 'Предложение',
+                    });
+                }
+            }
+
             await this.$router.push({ name: 'catalog' });
         },
         async getServices() {

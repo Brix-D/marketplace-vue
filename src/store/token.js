@@ -15,7 +15,6 @@ export const actions = {
         const token = await axios.get('/session/token', {
             withCredentials: true,
         });
-        console.log('csrf token', token.data);
         commit('SET_CSRF', token.data);
     },
 };
