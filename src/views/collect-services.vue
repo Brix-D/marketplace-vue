@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 import NewServiceList from '@/components/blocks/service/NewServiceList';
 
 export default {
@@ -94,9 +94,13 @@ export default {
         await this.getServices();
     },
     methods: {
+        ...mapMutations({
+            UPDATE_SERVICE_ID: 'newServices/UPDATE_SERVICE_ID',
+        }),
         ...mapActions({
             GET_SERVICES: 'newServices/GET_SERVICES',
             CREATE_SERVICE: 'newServices/CREATE_SERVICE',
+            CREATE_CONTACT_DATA: 'newServices/CREATE_CONTACT_DATA',
         }),
 
         isServiceExists(catalog, service) {
@@ -106,25 +110,45 @@ export default {
         },
 
         async onSave() {
-            for (let newService of this.NEW_DEMAND) {
+            for (let [index, newService] of Object.entries(this.NEW_DEMAND)) {
                 if (!this.isServiceExists(this.EXISTING_DEMAND, newService)) {
-                    await this.CREATE_SERVICE({
+                    const id = await this.CREATE_SERVICE({
                         title: newService.title,
                         description: newService.description,
                         type: 'Потребность',
                     });
+                    if (!!id) {
+                        this.UPDATE_SERVICE_ID({
+                            listName: 'newDemand',
+                            index,
+                            id,
+                        });
+                    }
                 }
             }
 
-            for (let newService of this.NEW_OFFER) {
+            for (let [index, newService] of Object.entries(this.NEW_OFFER)) {
                 if (!this.isServiceExists(this.EXISTING_OFFER, newService)) {
-                    await this.CREATE_SERVICE({
+                    const id = await this.CREATE_SERVICE({
                         title: newService.title,
                         description: newService.description,
                         type: 'Предложение',
                     });
+                    if (!!id) {
+                        this.UPDATE_SERVICE_ID({
+                            listName: 'newOffer',
+                            index,
+                            id,
+                        });
+                    }
                 }
             }
+
+            await this.CREATE_CONTACT_DATA({
+                company: this.company,
+                email: this.email,
+                phone: this.phone,
+            });
 
             await this.$router.push({ name: 'catalog' });
         },

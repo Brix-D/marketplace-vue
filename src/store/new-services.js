@@ -23,6 +23,9 @@ export const mutations = {
     DELETE_SERVICE(state, { listName, index }) {
         state[listName].splice(index, 1);
     },
+    UPDATE_SERVICE_ID(state, { listName, index, id }) {
+        state[listName][index].id = id;
+    },
 };
 
 function prettifyService(service) {
@@ -66,9 +69,11 @@ export const actions = {
         // commit('ADD_SERVICE', { listName: 'newDemand', emptyService });
     },
     async CREATE_SERVICE({ commit, rootGetters, dispatch }, { title, description, type }) {
-        dispatch('token/GET_CSRF', null, { root: true });
+        if (!rootGetters['token/CSRF_TOKEN']) {
+            dispatch('token/GET_CSRF', null, { root: true });
+        }
         const token = rootGetters['token/CSRF_TOKEN'];
-        await axios.post(
+        const response = await axios.post(
             '/entity/commerce_product',
             {
                 title: [
@@ -106,6 +111,57 @@ export const actions = {
                 withCredentials: true,
                 headers: {
                     'X-CSRF-Token': token,
+                },
+            }
+        );
+        console.log('product_id', response.data.product_id);
+        return response.data.product_id[0].value;
+    },
+    async CREATE_CONTACT_DATA({ commit, dispatch, rootGetters, state }, { company, email, phone }) {
+        if (!rootGetters['token/CSRF_TOKEN']) {
+            dispatch('token/GET_CSRF', null, { root: true });
+        }
+        const token = rootGetters['token/CSRF_TOKEN'];
+        let demandIds = state.newDemand.map((service) => {
+            return { target_id: service.id };
+        });
+        let offerIds = state.newOffer.map((service) => {
+            return { target_id: service.id };
+        });
+        await axios.post(
+            '/entity/contactdata',
+            {
+                title: [
+                    {
+                        value: company,
+                    },
+                ],
+                field_email: [
+                    {
+                        value: email,
+                    },
+                ],
+                field_phone: [
+                    {
+                        value: phone,
+                    },
+                ],
+                bundle: [
+                    {
+                        target_id: 'predpriyatie',
+                        target_type: 'contactdata_type',
+                    },
+                ],
+                field_potrebnosti: demandIds,
+                field_predlozhenie: offerIds,
+            },
+            {
+                withCredentials: true,
+                headers: {
+                    'X-CSRF-Token': token,
+                },
+                params: {
+                    _format: 'json',
                 },
             }
         );
