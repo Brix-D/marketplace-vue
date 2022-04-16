@@ -24,7 +24,7 @@
                         <h3 class="h4">По этим потребностям вам прийдет уведомление</h3>
                         <v-list two-line>
                             <v-list-item
-                                v-for="service in demand"
+                                v-for="service in DEMAND"
                                 :key="service.product_id[0].value"
                             >
                                 <!--                                <v-list-item-avatar>-->
@@ -42,7 +42,7 @@
                         <h3 class="h4">Эти предложения будут видны всем пользователям</h3>
                         <v-list two-line>
                             <v-list-item
-                                v-for="service in offer"
+                                v-for="service in OFFER"
                                 :key="service.product_id[0].value"
                             >
                                 <!--                                <v-list-item-avatar>-->
@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
     name: 'CollectServices',
     data() {
@@ -74,82 +76,32 @@ export default {
                 { name: 'Потребность', value: 'Потребность' },
                 { name: 'Предложение', value: 'Предложение' },
             ],
-            offer: [],
-            demand: [],
         };
+    },
+    computed: {
+        ...mapState({
+            OFFER: (state) => state.catalog.offer,
+            DEMAND: (state) => state.catalog.demand,
+        }),
     },
     async created() {
         await this.getServices();
     },
     methods: {
+        ...mapActions({
+            GET_SERVICES: 'catalog/GET_SERVICES',
+            CREATE_SERVICE: 'catalog/CREATE_SERVICE',
+        }),
         async onSave() {
-            const csrf = await this.$axios.get('/session/token', {
-                withCredentials: true,
+            await this.CREATE_SERVICE({
+                title: this.title,
+                description: this.description,
+                type: this.type.value,
             });
-            console.log(csrf);
-            await this.$axios.post(
-                '/entity/commerce_product',
-                {
-                    title: [
-                        {
-                            value: this.title,
-                        },
-                    ],
-                    body: [
-                        {
-                            value: this.description,
-                        },
-                    ],
-                    type: [{ target_id: 'uslugi' }],
-                    variations: [
-                        {
-                            target_id: 0,
-                        },
-                    ],
-                    stores: [
-                        {
-                            target_id: 0,
-                        },
-                    ],
-                    default_variation: [{ target_id: null }],
-                    field_tip: [
-                        {
-                            value: this.type.value,
-                        },
-                    ],
-                    field_price: [{ number: 0, currency_code: 'RUB' }],
-                    field_deficit: [{ value: true }],
-                    field_category: [{ value: 'нет' }],
-                },
-                {
-                    withCredentials: true,
-                    headers: {
-                        'X-CSRF-Token': csrf.data,
-                    },
-                }
-            );
+            await this.getServices();
         },
         async getServices() {
-            this.offer = [];
-            this.demand = [];
-            const response = await this.$axios.get('/products/list', {
-                withCredentials: true,
-            });
-            console.log(response);
-            response.data.forEach((service) => {
-                if (!!service.field_tip) {
-                    if (!!service.field_tip[0]) {
-                        if (!!service.field_tip[0].value) {
-                            if (service.field_tip[0].value === 'Потребность') {
-                                this.demand.push(service);
-                            }
-                            if (service.field_tip[0].value === 'Предложение') {
-                                this.offer.push(service);
-                            }
-                        }
-                    }
-                }
-            });
+            await this.GET_SERVICES();
         },
     },
 };

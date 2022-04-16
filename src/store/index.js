@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import users from './users';
+import token from './token';
 import catalog from './catalog';
 import filters from './filters';
 import activeService from './active-service';
@@ -12,5 +13,5 @@ export default new Vuex.Store({
     state: {},
     mutations: {},
     actions: {},
-    modules: { users, catalog, filters, activeService },
+    modules: { users, catalog, filters, activeService, token },
 });
