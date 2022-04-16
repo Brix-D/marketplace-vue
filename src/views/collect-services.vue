@@ -5,8 +5,6 @@
                 <h1 class="h2">Разместите ваши услуги и предложения</h1>
                 <div class="mt-4 contact__wrapper pa-4 rounded-lg">
                     <div class="contact__info">
-                        <!--                    <v-text-field v-model="title" label="Название услуги" outlined />-->
-                        <!--                    <v-textarea v-model="description" label="Описание услуги" outlined />-->
                         <!--                    <v-select-->
                         <!--                        v-model="type"-->
                         <!--                        label="Тип услуги"-->

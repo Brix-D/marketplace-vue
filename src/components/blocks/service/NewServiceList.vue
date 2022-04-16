@@ -6,7 +6,7 @@
                 <v-list-item
                     v-for="(service, index) in items"
                     :key="service.id"
-                    @click="onEditService(index)"
+                    @click="onEditService(service)"
                 >
                     <!--                                <v-list-item-avatar>-->
                     <!--                                    <v-img :src="service.field_photo" />-->
@@ -49,7 +49,14 @@
                 Добавить услугу
             </v-btn>
         </div>
-        <AddService v-model="modal.open" :title="modal.title" :item="modal.item" :type="type" />
+        <AddService
+            v-if="modal.open"
+            v-model="modal.open"
+            :title="modal.title"
+            :item="modal.item"
+            :type="type"
+            @save="onSaveItem($event)"
+        />
     </div>
 </template>
 <script>
@@ -110,16 +117,18 @@ export default {
         onDeleteService(index) {
             this.DELETE_SERVICE({ listName: this.type, index });
         },
-        onAddService(type) {
+        onAddService() {
             this.modal.title = 'Добавить услугу';
-            this.modal.open = true;
             this.modal.item = {};
-            // this.modal.type = type;
+            this.modal.open = true;
         },
-        onEditService(index, type) {
+        onEditService(item) {
+            this.modal.item = item;
             this.modal.title = 'Редактировать услугу';
             this.modal.open = true;
-            //this.modal.item = this.this.modal.type = type;
+        },
+        onSaveItem(event) {
+            console.log('saved item', event);
         },
     },
 };
