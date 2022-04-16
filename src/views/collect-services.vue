@@ -84,7 +84,6 @@ export default {
     methods: {
         async onSave() {
             const csrf = await this.$axios.get('/session/token', {
-                baseURL: 'https://servey.ru',
                 withCredentials: true,
             });
             console.log(csrf);
@@ -123,7 +122,6 @@ export default {
                     field_category: [{ value: 'нет' }],
                 },
                 {
-                    baseURL: 'https://servey.ru',
                     withCredentials: true,
                     headers: {
                         'X-CSRF-Token': csrf.data,
@@ -135,7 +133,6 @@ export default {
             this.offer = [];
             this.demand = [];
             const response = await this.$axios.get('/products/list', {
-                baseURL: 'https://servey.ru',
                 withCredentials: true,
             });
             console.log(response);
