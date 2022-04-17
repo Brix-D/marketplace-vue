@@ -18,7 +18,7 @@
                 :color="$vuetify.theme.currentTheme.info"
                 dark
                 class="px-10 rounded-lg"
-                :to="{ name: 'serviceView', params: { alias } }"
+                :to="{ name: 'serviceView', params: { id } }"
             >
                 Детали
             </v-btn>
@@ -33,10 +33,6 @@ export default {
     props: {
         id: {
             type: Number,
-            required: true,
-        },
-        alias: {
-            type: String,
             required: true,
         },
         title: {

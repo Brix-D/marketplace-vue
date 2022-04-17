@@ -56,7 +56,7 @@ export default {
         }),
     },
     async created() {
-        await this.GET_SERVICE({ alias: this.$route.params.alias });
+        await this.GET_SERVICE({ id: this.$route.params.id });
     },
     methods: {
         numberToPrice,
@@ -66,7 +66,7 @@ export default {
     },
     metaInfo() {
         return {
-            title: `${this.$route.params.alias} | servey`,
+            title: `${this.service.title} | servey`,
         };
     },
 };

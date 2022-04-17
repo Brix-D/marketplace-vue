@@ -47,7 +47,7 @@ const routes = [
         component: collectServices,
     },
     {
-        path: '/service/:alias',
+        path: '/service/:id',
         name: 'serviceView',
         component: serviceView,
         //meta: { title: `${} | ` + appName },

@@ -1,4 +1,5 @@
 import { axios } from '@/plugins/axios';
+import { prettifyService } from '@/utils';
 
 export const state = () => ({
     existingOffer: [],
@@ -28,16 +29,8 @@ export const mutations = {
     },
 };
 
-function prettifyService(service) {
-    return {
-        id: service.product_id[0].value,
-        title: service.title[0].value,
-        description: service.body[0].value,
-        type: service.field_tip[0].value,
-    };
-}
-
 export const actions = {
+    // TODO использовать новый запрос
     async GET_SERVICES({ commit }) {
         const offer = [];
         const demand = [];

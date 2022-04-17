@@ -11,7 +11,7 @@ export const mutations = {
 };
 
 export const actions = {
-    async GET_SERVICE({ commit }, { alias }) {
+    async GET_SERVICE({ commit }, { id }) {
         commit('SET_SERVICE', activeService);
     },
 };
