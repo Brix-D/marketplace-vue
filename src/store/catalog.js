@@ -1,5 +1,3 @@
-import offerFixture from './fixtures/offer.json';
-import demandFixture from './fixtures/demand.json';
 import { axios } from '@/plugins/axios';
 import { prettifyService } from '@/utils';
 
@@ -15,18 +13,6 @@ export const mutations = {
 
 export const actions = {
     async GET_CATALOG({ commit }, { type, authorId }) {
-        //switch (type) {
-        // case 'offer': {
-        //     commit('SET_CATALOG', offerFixture);
-        //     break;
-        // }
-        // case 'demand': {
-        //     commit('SET_CATALOG', demandFixture);
-        //     break;
-        // }
-        //  default: {
-
-        //}
         if (!['offer', 'demand'].includes(type)) {
             throw 'Incorrect Catalog Type';
         }
@@ -43,11 +29,6 @@ export const actions = {
         console.log('catalog catalog', catalog);
         commit('SET_CATALOG', catalog);
     },
-    // async TEST_AXIOS({ commit }) {
-    //     console.log('this', this);
-    //     const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    //     console.log(data);
-    // },
 };
 
 export default { namespaced: true, state, mutations, actions };
