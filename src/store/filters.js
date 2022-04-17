@@ -1,4 +1,5 @@
 import allFilters from './fixtures/allFilters.json';
+import { axios } from '@/plugins/axios';
 
 export const state = () => ({
     // Все фильтры для каталога
@@ -18,9 +19,17 @@ export const mutations = {
 };
 
 export const actions = {
-    async GET_FILTERS({ commit }) {
-        const filters = allFilters;
-        commit('SET_FILTERS', filters);
+    async GET_FILTERS({ commit }, { type }) {
+        // const filters = allFilters;
+        if (!['offer', 'demand'].includes(type)) {
+            throw 'Incorrect Catalog Type';
+        }
+        const filters = await axios.get(`/api/v1/filters/${type}`, {
+            params: {
+                _format: 'json',
+            },
+        });
+        commit('SET_FILTERS', filters.data);
         commit('APPLY_FILTERS', {});
     },
 };

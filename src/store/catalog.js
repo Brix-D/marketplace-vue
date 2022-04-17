@@ -26,7 +26,6 @@ export const actions = {
         });
         // const dataArray = Object.values(data);
         const catalog = data.map((service) => prettifyService(service));
-        console.log('catalog catalog', catalog);
         commit('SET_CATALOG', catalog);
     },
 };

@@ -29,7 +29,7 @@ export default {
     },
     async created() {
         await this.GET_CATALOG({ type: 'demand' });
-        await this.GET_FILTERS();
+        await this.GET_FILTERS({ type: 'demand' });
     },
     methods: {
         ...mapActions({
