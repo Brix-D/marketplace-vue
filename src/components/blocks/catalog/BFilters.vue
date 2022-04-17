@@ -1,7 +1,6 @@
 <template>
     <aside class="filters d-flex flex-column pa-4">
         <h3 class="filters__title text-center">Фильтры</h3>
-        <pre>{{ selectedFilters }}</pre>
         <div class="filters__groups">
             <div v-for="group in filtersList.groups" :key="group.groupId" class="filters__group">
                 <h4 class="filters__group-name">{{ group.name }}</h4>
