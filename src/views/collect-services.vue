@@ -94,7 +94,7 @@
                         :disabled="!LOGGED"
                         @click="onSave"
                     >
-                        Сохранить услуги
+                        Сохранить и перейти к просмотру
                     </v-btn>
                 </div>
             </v-col>
