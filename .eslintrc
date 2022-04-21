@@ -6,7 +6,7 @@
         "browser": true
     },
     "extends": [
-        "plugin:vue/strongly-recommended",
+        "plugin:vue/base",
         "prettier",
         "plugin:json/recommended"
     ],
@@ -115,11 +115,11 @@
         "vue/no-confusing-v-for-v-if": "error",
         "object-shorthand": "error"
     },
-    "parser": "@babel/eslint-parser",
-    //    "parserOptions": {
-    //        "parser": "eslint-parser",
-    //        "sourceType": "module",
-    //        "ecmaVersion": 2018
-    //    },
+    "parser": "vue-eslint-parser",
+//    "parserOptions": {
+//        "parser": "eslint-parser",
+//        "sourceType": "module",
+//        "ecmaVersion": 2018
+//    },
     "plugins": ["import", "vue", "prettier", "json"]
 }
