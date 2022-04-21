@@ -54,6 +54,7 @@
                     <NewServiceList
                         :items="CURRENT('service', 'demand')"
                         type="demand"
+                        bundle="service"
                         title="По этим потребностям вам прийдет уведомление"
                         class="services__list"
                         :existing-items="SUGGESTION('service', 'demand')"
@@ -62,6 +63,7 @@
                     <NewServiceList
                         :items="CURRENT('service', 'offer')"
                         type="offer"
+                        bundle="service"
                         title="Эти предложения будут видны всем пользователям"
                         class="services__list"
                         :existing-items="SUGGESTION('service', 'offer')"

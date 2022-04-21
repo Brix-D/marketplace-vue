@@ -65,28 +65,7 @@ export const actions = {
         response.data.forEach((service) => {
             result.push(prettifyService(service));
         });
-        // response.data.forEach((service) => {
-        //     if (!!service.field_tip) {
-        //         if (!!service.field_tip[0]) {
-        //             if (!!service.field_tip[0].value) {
-        //                 if (service.field_tip[0].value === 'Потребность') {
-        //                     demand.push(prettifyService(service));
-        //                 }
-        //                 if (service.field_tip[0].value === 'Предложение') {
-        //                     offer.push(prettifyService(service));
-        //                 }
-        //             }
-        //         }
-        //     }
-        // });
         commit('SET_SUGGESTION', { bundle: typeBundle, type: typeCatalog, data: result });
-        // const emptyService = {
-        //     id: performance.now(),
-        //     title: '',
-        //     description: '',
-        // };
-        // commit('ADD_SERVICE', { listName: 'newOffer', emptyService });
-        // commit('ADD_SERVICE', { listName: 'newDemand', emptyService });
     },
     async CREATE_SERVICE({ commit, rootGetters, dispatch }, { bundle, title, description, type }) {
         if (!rootGetters['token/CSRF_TOKEN']) {

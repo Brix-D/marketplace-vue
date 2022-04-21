@@ -82,6 +82,10 @@ export default {
             type: Array,
             required: true,
         },
+        bundle: {
+            type: String,
+            required: true,
+        },
         type: {
             type: String,
             required: true,
@@ -120,12 +124,16 @@ export default {
         }),
         onSelectService(event) {
             if (!!event) {
-                this.ADD_SERVICE({ listName: this.type, service: event.value });
+                this.ADD_SERVICE({
+                    bundle: this.bundle,
+                    listName: this.type,
+                    service: event.value,
+                });
             }
             this.selectedSuggestion = {};
         },
         onDeleteService(index) {
-            this.DELETE_SERVICE({ listName: this.type, index });
+            this.DELETE_SERVICE({ bundle: this.bundle, listName: this.type, index });
         },
         onAddService() {
             this.modal.title = 'Добавить услугу';
@@ -147,12 +155,17 @@ export default {
         onSaveItem(event) {
             if (this.modal.isEdit) {
                 this.EDIT_SERVICE({
+                    bundle: this.bundle,
                     listName: this.type,
                     service: event,
                     index: this.modal.itemIndex,
                 });
             } else {
-                this.ADD_SERVICE({ listName: this.type, service: event });
+                this.ADD_SERVICE({
+                    bundle: this.bundle,
+                    listName: this.type,
+                    service: event,
+                });
             }
             this.modal.isEdit = null;
             this.modal.itemIndex = null;
