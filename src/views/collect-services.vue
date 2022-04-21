@@ -57,32 +57,28 @@
                         :color="$vuetify.theme.currentTheme.info"
                         :background-color="$vuetify.theme.currentTheme.secondaryLight"
                     >
-                        <v-tab v-for="(tab, index) in tabs" :key="index" :ripple="false">
+                        <v-tab v-for="(tab, index) in bundles" :key="index" :ripple="false">
                             {{ tab.name }}
                         </v-tab>
                     </v-tabs>
                 </div>
                 <div class="tabs__body">
                     <v-tabs-items v-model="activeTab">
-                        <v-tab-item v-for="(tab, index) in tabs" :key="index" :transition="false">
+                        <v-tab-item
+                            v-for="(tab, index) in bundles"
+                            :key="index"
+                            :transition="false"
+                        >
                             <div class="services d-flex justify-space-between mt-4">
-                                <!-- TODO set bundle type-->
                                 <NewServiceList
-                                    :items="CURRENT(tab.value, 'demand')"
-                                    type="demand"
+                                    v-for="type in typeData"
+                                    :key="type.value"
+                                    :items="CURRENT(tab.value, type.value)"
+                                    :type="type.value"
                                     :bundle="tab.value"
-                                    title="По этим потребностям вам прийдет уведомление"
+                                    :title="type.title"
                                     class="services__list"
-                                    :existing-items="SUGGESTION(tab.value, 'demand')"
-                                    :disabled="!LOGGED"
-                                />
-                                <NewServiceList
-                                    :items="CURRENT(tab.value, 'offer')"
-                                    type="offer"
-                                    :bundle="tab.value"
-                                    title="Эти предложения будут видны всем пользователям"
-                                    class="services__list"
-                                    :existing-items="SUGGESTION(tab.value, 'offer')"
+                                    :existing-items="SUGGESTION(tab.value, type.value)"
                                     :disabled="!LOGGED"
                                 />
                             </div>
@@ -118,9 +114,10 @@ export default {
             company: '',
             email: '',
             phone: '',
-            LOGGED: true,
+            // TODO for local dev
+            //LOGGED: true,
             activeTab: 0,
-            tabs: [
+            bundles: [
                 {
                     name: 'Товары',
                     value: 'goods',
@@ -130,18 +127,26 @@ export default {
                     value: 'service',
                 },
             ],
+            typeData: [
+                {
+                    value: 'demand',
+                    verbose: 'Потребность',
+                    title: 'По этим потребностям вам прийдет уведомление',
+                },
+                {
+                    value: 'offer',
+                    verbose: 'Предложение',
+                    title: 'Эти предложения будут видны всем пользователям',
+                },
+            ],
         };
     },
     computed: {
         ...mapState({
-            // EXISTING_OFFER: (state) => state['newServices'].existing,
-            // EXISTING_DEMAND: (state) => state['newServices'].existingDemand,
-            // OFFER: (state) => state['newServices'].offer,
-            // DEMAND: (state) => state['newServices'].demand,
             USER_INFO: (state) => state.users.user,
         }),
         ...mapGetters({
-            //LOGGED: 'users/LOGGED',
+            LOGGED: 'users/LOGGED',
             SUGGESTION: 'newServices/SUGGESTION',
             CURRENT: 'newServices/CURRENT',
         }),
@@ -166,36 +171,29 @@ export default {
         },
 
         async onSave() {
-            for (let [index, newService] of Object.entries(this.DEMAND)) {
-                if (!this.isServiceExists(this.EXISTING_DEMAND, newService)) {
-                    const id = await this.CREATE_SERVICE({
-                        title: newService.title,
-                        description: newService.description,
-                        type: 'Потребность',
-                    });
-                    if (!!id) {
-                        this.UPDATE_SERVICE_ID({
-                            listName: 'demand',
-                            index,
-                            id,
-                        });
-                    }
-                }
-            }
-
-            for (let [index, newService] of Object.entries(this.OFFER)) {
-                if (!this.isServiceExists(this.EXISTING_OFFER, newService)) {
-                    const id = await this.CREATE_SERVICE({
-                        title: newService.title,
-                        description: newService.description,
-                        type: 'Предложение',
-                    });
-                    if (!!id) {
-                        this.UPDATE_SERVICE_ID({
-                            listName: 'offer',
-                            index,
-                            id,
-                        });
+            for (let bundle of this.bundles) {
+                for (let type of this.typeData) {
+                    for (let [index, item] of Object.entries(
+                        this.CURRENT(bundle.value, type.value)
+                    )) {
+                        if (
+                            !this.isServiceExists(this.SUGGESTION(bundle.value, type.value), item)
+                        ) {
+                            const id = await this.CREATE_SERVICE({
+                                bundle: bundle.value,
+                                title: item.title,
+                                description: item.description,
+                                type: type.verbose,
+                            });
+                            if (!!id) {
+                                this.UPDATE_SERVICE_ID({
+                                    bundle: bundle.value,
+                                    listName: type.value,
+                                    index,
+                                    id,
+                                });
+                            }
+                        }
                     }
                 }
             }
@@ -209,10 +207,14 @@ export default {
             await this.$router.push({ name: 'catalog' });
         },
         async getSuggestionServices() {
-            await this.GET_SUGGESTION_SERVICES({ typeCatalog: 'demand', typeBundle: 'service' });
-            await this.GET_SUGGESTION_SERVICES({ typeCatalog: 'offer', typeBundle: 'service' });
-            await this.GET_SUGGESTION_SERVICES({ typeCatalog: 'demand', typeBundle: 'goods' });
-            await this.GET_SUGGESTION_SERVICES({ typeCatalog: 'offer', typeBundle: 'goods' });
+            this.bundles.forEach((bundle) => {
+                this.typeData.forEach(async (type) => {
+                    await this.GET_SUGGESTION_SERVICES({
+                        typeCatalog: type.value,
+                        typeBundle: bundle.value,
+                    });
+                });
+            });
         },
     },
 };

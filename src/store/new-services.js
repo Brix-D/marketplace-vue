@@ -31,12 +31,6 @@ export const mutations = {
     SET_CURRENT(state, { bundle, type, data }) {
         state.items[bundle][type] = [...data];
     },
-    // SET_OFFER(state, payload) {
-    //     state.existingOffer = [...payload];
-    // },
-    // SET_DEMAND(state, payload) {
-    //     state.existingDemand = [...payload];
-    // },
     ADD_SERVICE(state, { bundle, listName, service }) {
         state.items[bundle][listName].push(service);
     },
@@ -52,7 +46,6 @@ export const mutations = {
 };
 
 export const actions = {
-    // TODO использовать новый запрос
     async GET_SUGGESTION_SERVICES({ commit }, { typeCatalog, typeBundle }) {
         const result = [];
         const response = await axios.get(`/api/v1/catalog/${typeCatalog}`, {
@@ -71,6 +64,18 @@ export const actions = {
         if (!rootGetters['token/CSRF_TOKEN']) {
             dispatch('token/GET_CSRF', null, { root: true });
         }
+        let bundleField;
+        switch (bundle) {
+            case 'service':
+                bundleField = 'uslugi';
+                break;
+            case 'goods':
+                bundleField = 'default';
+                break;
+            default:
+                bundleField = null;
+                throw 'Неверный тип bundle';
+        }
         const token = rootGetters['token/CSRF_TOKEN'];
         const response = await axios.post(
             '/entity/commerce_product',
@@ -85,8 +90,7 @@ export const actions = {
                         value: description,
                     },
                 ],
-                // TODO uslugi default
-                type: [{ target_id: bundle }],
+                type: [{ target_id: bundleField }],
                 variations: [
                     {
                         target_id: 0,
@@ -121,12 +125,27 @@ export const actions = {
             dispatch('token/GET_CSRF', null, { root: true });
         }
         const token = rootGetters['token/CSRF_TOKEN'];
-        let demandIds = state.newDemand.map((service) => {
-            return { target_id: service.id };
+        let offerIds = [];
+        let demandIds = [];
+        Object.keys(state.items).forEach((bundle) => {
+            Object.keys(state.items[bundle]).forEach((type) => {
+                state.items[bundle][type].forEach((item) => {
+                    if (type === 'offer') {
+                        offerIds.push({ target_id: item.id });
+                    }
+                    if (type === 'demand') {
+                        demandIds.push({ target_id: item.id });
+                    }
+                });
+            });
         });
-        let offerIds = state.newOffer.map((service) => {
-            return { target_id: service.id };
-        });
+        console.log('offerIds', offerIds);
+        console.log('demandIds', demandIds);
+        // state.items.forEach((bundle) => {
+        //     bundle.forEach((type) => {
+        //         demandIds.push({ target_id: service.id });
+        //     });
+        // });
         await axios.post(
             '/entity/contactdata',
             {
