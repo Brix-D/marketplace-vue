@@ -28,6 +28,9 @@ new Vue({
     router,
     store,
     vuetify,
+    async created() {
+        await store.dispatch('users/GET_USER_INFO');
+    },
     render: (h) => h(App),
 }).$mount('#app');
 //}

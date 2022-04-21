@@ -6,6 +6,7 @@
                 <v-list-item
                     v-for="(service, index) in items"
                     :key="service.id"
+                    :disabled="disabled"
                     @click="onEditService(service, index)"
                 >
                     <!--                                <v-list-item-avatar>-->
@@ -35,6 +36,7 @@
                 outlined
                 clearable
                 class="mt-4"
+                :disabled="disabled"
                 @change="onSelectService"
             />
             <v-btn
@@ -42,8 +44,9 @@
                 large
                 :ripple="false"
                 depressed
-                dark
+                :dark="!disabled"
                 class="rounded-lg"
+                :disabled="disabled"
                 @click="onAddService"
             >
                 Добавить услугу
@@ -82,6 +85,10 @@ export default {
         type: {
             type: String,
             required: true,
+        },
+        disabled: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {

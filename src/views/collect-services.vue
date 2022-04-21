@@ -3,7 +3,7 @@
         <v-row dense>
             <v-col cols="12">
                 <h1 class="h2">Разместите ваши услуги и предложения</h1>
-                <div class="mt-4 contact__wrapper pa-4 rounded-lg">
+                <div class="mt-4 contact__wrapper pa-4 rounded-lg d-flex justify-space-between">
                     <div class="contact__info">
                         <!--                    <v-select-->
                         <!--                        v-model="type"-->
@@ -23,19 +23,48 @@
                         <v-text-field v-model="email" label="Email" outlined hide-details />
                         <v-text-field v-model="phone" label="Телефон" outlined hide-details />
                     </div>
+                    <div v-if="!USER_INFO.isLogged" class="contact__login">
+                        <p class="subtitle-1 my-0">
+                            Для размещения услуг необходимо зарегистрироватся
+                        </p>
+                        <v-btn
+                            :color="$vuetify.theme.currentTheme.info"
+                            dark
+                            large
+                            class="rounded-lg"
+                            outlined
+                            href="/user/login"
+                        >
+                            Вход
+                        </v-btn>
+                        <v-btn
+                            :color="$vuetify.theme.currentTheme.info"
+                            dark
+                            large
+                            class="rounded-lg"
+                            outlined
+                            href="/user/register"
+                        >
+                            Регистрация
+                        </v-btn>
+                    </div>
                 </div>
                 <div class="services d-flex justify-space-between mt-4">
                     <NewServiceList
                         :items="NEW_DEMAND"
                         type="newDemand"
                         title="По этим потребностям вам прийдет уведомление"
+                        class="services__list"
                         :existing-items="EXISTING_DEMAND"
+                        :disabled="!LOGGED"
                     />
                     <NewServiceList
                         :items="NEW_OFFER"
                         type="newOffer"
                         title="Эти предложения будут видны всем пользователям"
+                        class="services__list"
                         :existing-items="EXISTING_OFFER"
+                        :disabled="!LOGGED"
                     />
                     <!--                    @select="onSelectService($event, 'newDemand')"
                         @delete="onDeleteService($event, 'newDemand')"
@@ -46,22 +75,25 @@
                         @add="onAddService('newOffer')"
                         @edit="onEditService($event, 'newOffer')"-->
                 </div>
-                <v-btn
-                    :color="$vuetify.theme.currentTheme.info"
-                    dark
-                    large
-                    class="rounded-lg"
-                    @click="onSave"
-                >
-                    Сохранить услуги
-                </v-btn>
+                <div class="services__save mt-4 d-flex justify-end">
+                    <v-btn
+                        :color="$vuetify.theme.currentTheme.info"
+                        :dark="LOGGED"
+                        x-large
+                        class="rounded-lg px-10"
+                        :disabled="!LOGGED"
+                        @click="onSave"
+                    >
+                        Сохранить услуги
+                    </v-btn>
+                </div>
             </v-col>
         </v-row>
     </div>
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import NewServiceList from '@/components/blocks/service/NewServiceList';
 
 export default {
@@ -88,6 +120,10 @@ export default {
             EXISTING_DEMAND: (state) => state['newServices'].existingDemand,
             NEW_OFFER: (state) => state['newServices'].newOffer,
             NEW_DEMAND: (state) => state['newServices'].newDemand,
+            USER_INFO: (state) => state.users.user,
+        }),
+        ...mapGetters({
+            LOGGED: 'users/LOGGED',
         }),
     },
     async created() {
@@ -168,6 +204,20 @@ export default {
         display: grid;
         row-gap: 16px;
         width: 30%;
+    }
+    &__login {
+        align-self: center;
+        width: 30%;
+        display: grid;
+        row-gap: 16px;
+        justify-content: end;
+    }
+}
+.services {
+    &__list {
+        width: calc(30% + 8px);
+    }
+    &__save {
     }
 }
 </style>

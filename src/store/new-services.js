@@ -107,7 +107,6 @@ export const actions = {
                 },
             }
         );
-        console.log('product_id', response.data.product_id);
         return response.data.product_id[0].value;
     },
     async CREATE_CONTACT_DATA({ commit, dispatch, rootGetters, state }, { company, email, phone }) {

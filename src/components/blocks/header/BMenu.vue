@@ -29,7 +29,7 @@
                         >
                             {{ item.name }}
                         </v-btn>
-                        <template v-if="isLogged">
+                        <template v-if="LOGGED">
                             <v-btn
                                 key="profile"
                                 :to="{ name: 'profileSettings' }"
@@ -104,7 +104,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <template v-if="isLogged">
+                <template v-if="LOGGED">
                     <v-list-item
                         key="profile"
                         :to="{ name: 'profileSettings' }"
@@ -153,13 +153,15 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
+
 export default {
     name: 'BMenu',
     data() {
         return {
             menuIsOpen: false,
-            // TODO получить статус авторизации с бека
-            isLogged: true,
+            // // TODO получить статус авторизации с бека
+            // isLogged: true,
             mainMenu: [
                 {
                     name: 'Предложения',
@@ -187,6 +189,14 @@ export default {
                 },
             ],
         };
+    },
+    computed: {
+        ...mapState({
+            USER_INFO: (state) => state.users.user,
+        }),
+        ...mapGetters({
+            LOGGED: 'users/LOGGED',
+        }),
     },
 };
 </script>

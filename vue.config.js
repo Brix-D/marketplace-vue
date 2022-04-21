@@ -34,12 +34,12 @@ module.exports = {
                     // followRedirects: true,
                     changeOrigin: true,
                     withCredentials: true,
-                    // cookieDomainRewrite: {
-                    //     '*': '',
-                    // },
-                    // cookiePathRewrite: {
-                    //     '*': '',
-                    // },
+                    cookieDomainRewrite: {
+                        '*': '.servey.ru',
+                    },
+                    cookiePathRewrite: {
+                        '*': '',
+                    },
                 },
             },
             headers: {
