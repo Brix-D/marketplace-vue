@@ -50,30 +50,23 @@
                     </div>
                 </div>
                 <div class="services d-flex justify-space-between mt-4">
+                    <!-- TODO set bundle type-->
                     <NewServiceList
-                        :items="NEW_DEMAND"
-                        type="newDemand"
+                        :items="CURRENT('service', 'demand')"
+                        type="demand"
                         title="По этим потребностям вам прийдет уведомление"
                         class="services__list"
-                        :existing-items="EXISTING_DEMAND"
+                        :existing-items="SUGGESTION('service', 'demand')"
                         :disabled="!LOGGED"
                     />
                     <NewServiceList
-                        :items="NEW_OFFER"
-                        type="newOffer"
+                        :items="CURRENT('service', 'offer')"
+                        type="offer"
                         title="Эти предложения будут видны всем пользователям"
                         class="services__list"
-                        :existing-items="EXISTING_OFFER"
+                        :existing-items="SUGGESTION('service', 'offer')"
                         :disabled="!LOGGED"
                     />
-                    <!--                    @select="onSelectService($event, 'newDemand')"
-                        @delete="onDeleteService($event, 'newDemand')"
-                        @add="onAddService('newDemand')"
-                        @edit="onEditService($event, 'newDemand')"
-                        @select="onSelectService($event, 'newOffer')"
-                        @delete="onDeleteService($event, 'newOffer')"
-                        @add="onAddService('newOffer')"
-                        @edit="onEditService($event, 'newOffer')"-->
                 </div>
                 <div class="services__save mt-4 d-flex justify-end">
                     <v-btn
@@ -104,37 +97,32 @@ export default {
             company: '',
             email: '',
             phone: '',
-            // title: '',
-            // description: '',
-
-            // type: {},
-            // types: [
-            //     { name: 'Потребность', value: 'Потребность' },
-            //     { name: 'Предложение', value: 'Предложение' },
-            // ],
+            LOGGED: true,
         };
     },
     computed: {
         ...mapState({
-            EXISTING_OFFER: (state) => state['newServices'].existingOffer,
-            EXISTING_DEMAND: (state) => state['newServices'].existingDemand,
-            NEW_OFFER: (state) => state['newServices'].newOffer,
-            NEW_DEMAND: (state) => state['newServices'].newDemand,
+            // EXISTING_OFFER: (state) => state['newServices'].existing,
+            // EXISTING_DEMAND: (state) => state['newServices'].existingDemand,
+            // OFFER: (state) => state['newServices'].offer,
+            // DEMAND: (state) => state['newServices'].demand,
             USER_INFO: (state) => state.users.user,
         }),
         ...mapGetters({
-            LOGGED: 'users/LOGGED',
+            //LOGGED: 'users/LOGGED',
+            SUGGESTION: 'newServices/SUGGESTION',
+            CURRENT: 'newServices/CURRENT',
         }),
     },
     async created() {
-        await this.getServices();
+        await this.getSuggestionServices();
     },
     methods: {
         ...mapMutations({
             UPDATE_SERVICE_ID: 'newServices/UPDATE_SERVICE_ID',
         }),
         ...mapActions({
-            GET_SERVICES: 'newServices/GET_SERVICES',
+            GET_SUGGESTION_SERVICES: 'newServices/GET_SUGGESTION_SERVICES',
             CREATE_SERVICE: 'newServices/CREATE_SERVICE',
             CREATE_CONTACT_DATA: 'newServices/CREATE_CONTACT_DATA',
         }),
@@ -146,7 +134,7 @@ export default {
         },
 
         async onSave() {
-            for (let [index, newService] of Object.entries(this.NEW_DEMAND)) {
+            for (let [index, newService] of Object.entries(this.DEMAND)) {
                 if (!this.isServiceExists(this.EXISTING_DEMAND, newService)) {
                     const id = await this.CREATE_SERVICE({
                         title: newService.title,
@@ -155,7 +143,7 @@ export default {
                     });
                     if (!!id) {
                         this.UPDATE_SERVICE_ID({
-                            listName: 'newDemand',
+                            listName: 'demand',
                             index,
                             id,
                         });
@@ -163,7 +151,7 @@ export default {
                 }
             }
 
-            for (let [index, newService] of Object.entries(this.NEW_OFFER)) {
+            for (let [index, newService] of Object.entries(this.OFFER)) {
                 if (!this.isServiceExists(this.EXISTING_OFFER, newService)) {
                     const id = await this.CREATE_SERVICE({
                         title: newService.title,
@@ -172,7 +160,7 @@ export default {
                     });
                     if (!!id) {
                         this.UPDATE_SERVICE_ID({
-                            listName: 'newOffer',
+                            listName: 'offer',
                             index,
                             id,
                         });
@@ -188,8 +176,11 @@ export default {
 
             await this.$router.push({ name: 'catalog' });
         },
-        async getServices() {
-            await this.GET_SERVICES();
+        async getSuggestionServices() {
+            await this.GET_SUGGESTION_SERVICES({ typeCatalog: 'demand', typeBundle: 'service' });
+            await this.GET_SUGGESTION_SERVICES({ typeCatalog: 'offer', typeBundle: 'service' });
+            await this.GET_SUGGESTION_SERVICES({ typeCatalog: 'demand', typeBundle: 'goods' });
+            await this.GET_SUGGESTION_SERVICES({ typeCatalog: 'offer', typeBundle: 'goods' });
         },
     },
 };

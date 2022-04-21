@@ -7,6 +7,8 @@ export function prettifyService(service) {
         category: service.field_category[0].value,
         price: parseFloat(service.field_price[0].number),
         author: service.author,
+        bundle: service.type[0].target_id,
+        // TODO сделать человеко читаемое имя на беке
     };
 }
 

@@ -2,57 +2,84 @@ import { axios } from '@/plugins/axios';
 import { prettifyService } from '@/utils';
 
 export const state = () => ({
-    existingOffer: [],
-    existingDemand: [],
-    newOffer: [],
-    newDemand: [],
+    suggestion: {
+        service: {
+            offer: [],
+            demand: [],
+        },
+        goods: {
+            offer: [],
+            demand: [],
+        },
+    },
+    items: {
+        service: {
+            offer: [],
+            demand: [],
+        },
+        goods: {
+            offer: [],
+            demand: [],
+        },
+    },
 });
 
 export const mutations = {
-    SET_OFFER(state, payload) {
-        state.existingOffer = [...payload];
+    SET_SUGGESTION(state, { bundle, type, data }) {
+        state.suggestion[bundle][type] = [...data];
     },
-    SET_DEMAND(state, payload) {
-        state.existingDemand = [...payload];
+    SET_CURRENT(state, { bundle, type, data }) {
+        state.items[bundle][type] = [...data];
     },
-    ADD_SERVICE(state, { listName, service }) {
-        state[listName].push(service);
+    // SET_OFFER(state, payload) {
+    //     state.existingOffer = [...payload];
+    // },
+    // SET_DEMAND(state, payload) {
+    //     state.existingDemand = [...payload];
+    // },
+    ADD_SERVICE(state, { bundle, listName, service }) {
+        state.items[bundle][listName].push(service);
     },
-    EDIT_SERVICE(state, { listName, service, index }) {
-        state[listName][index] = { ...service };
+    EDIT_SERVICE(state, { bundle, listName, service, index }) {
+        state.items[bundle][listName][index] = { ...service };
     },
-    DELETE_SERVICE(state, { listName, index }) {
-        state[listName].splice(index, 1);
+    DELETE_SERVICE(state, { bundle, listName, index }) {
+        state.items[bundle][listName].splice(index, 1);
     },
-    UPDATE_SERVICE_ID(state, { listName, index, id }) {
-        state[listName][index].id = id;
+    UPDATE_SERVICE_ID(state, { bundle, listName, index, id }) {
+        state.items[bundle][listName][index].id = id;
     },
 };
 
 export const actions = {
     // TODO использовать новый запрос
-    async GET_SERVICES({ commit }) {
-        const offer = [];
-        const demand = [];
-        const response = await axios.get('/products/list', {
+    async GET_SUGGESTION_SERVICES({ commit }, { typeCatalog, typeBundle }) {
+        const result = [];
+        const response = await axios.get(`/api/v1/catalog/${typeCatalog}`, {
             withCredentials: true,
+            params: {
+                product: typeBundle,
+                _format: 'json',
+            },
         });
         response.data.forEach((service) => {
-            if (!!service.field_tip) {
-                if (!!service.field_tip[0]) {
-                    if (!!service.field_tip[0].value) {
-                        if (service.field_tip[0].value === 'Потребность') {
-                            demand.push(prettifyService(service));
-                        }
-                        if (service.field_tip[0].value === 'Предложение') {
-                            offer.push(prettifyService(service));
-                        }
-                    }
-                }
-            }
+            result.push(prettifyService(service));
         });
-        commit('SET_OFFER', offer);
-        commit('SET_DEMAND', demand);
+        // response.data.forEach((service) => {
+        //     if (!!service.field_tip) {
+        //         if (!!service.field_tip[0]) {
+        //             if (!!service.field_tip[0].value) {
+        //                 if (service.field_tip[0].value === 'Потребность') {
+        //                     demand.push(prettifyService(service));
+        //                 }
+        //                 if (service.field_tip[0].value === 'Предложение') {
+        //                     offer.push(prettifyService(service));
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
+        commit('SET_SUGGESTION', { bundle: typeBundle, type: typeCatalog, data: result });
         // const emptyService = {
         //     id: performance.now(),
         //     title: '',
@@ -61,7 +88,7 @@ export const actions = {
         // commit('ADD_SERVICE', { listName: 'newOffer', emptyService });
         // commit('ADD_SERVICE', { listName: 'newDemand', emptyService });
     },
-    async CREATE_SERVICE({ commit, rootGetters, dispatch }, { title, description, type }) {
+    async CREATE_SERVICE({ commit, rootGetters, dispatch }, { bundle, title, description, type }) {
         if (!rootGetters['token/CSRF_TOKEN']) {
             dispatch('token/GET_CSRF', null, { root: true });
         }
@@ -79,7 +106,8 @@ export const actions = {
                         value: description,
                     },
                 ],
-                type: [{ target_id: 'uslugi' }],
+                // TODO uslugi default
+                type: [{ target_id: bundle }],
                 variations: [
                     {
                         target_id: 0,
@@ -159,5 +187,9 @@ export const actions = {
         );
     },
 };
+export const getters = {
+    SUGGESTION: (state) => (bundle, type) => state.suggestion[bundle][type],
+    CURRENT: (state) => (bundle, type) => state.items[bundle][type],
+};
 
-export default { namespaced: true, state, mutations, actions };
+export default { namespaced: true, state, mutations, actions, getters };
