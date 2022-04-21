@@ -25,7 +25,7 @@
                     </div>
                     <div v-if="!LOGGED" class="contact__login">
                         <p class="subtitle-1 my-0">
-                            Для размещения услуг необходимо зарегистрироватся
+                            Для размещения объявлений необходимо зарегистрироватся
                         </p>
                         <v-btn
                             :color="$vuetify.theme.currentTheme.info"
