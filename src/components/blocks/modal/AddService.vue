@@ -1,8 +1,8 @@
 <template>
     <ModalLayoutDefault v-model="modal" :title="title">
         <template #default>
-            <v-text-field v-model="localItem.title" label="Название услуги" outlined />
-            <v-textarea v-model="localItem.description" label="Описание услуги" outlined />
+            <v-text-field v-model="localItem.title" label="Название" outlined />
+            <v-textarea v-model="localItem.description" label="Описание" outlined />
         </template>
         <template #footer>
             <v-btn

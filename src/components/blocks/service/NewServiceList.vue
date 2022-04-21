@@ -26,7 +26,7 @@
             </v-list>
             <div class="mt-4">
                 <span class="body-1">
-                    Выберите из списка уже имеющихся услуг или создайте новую
+                    {{ hintMessage }}
                 </span>
             </div>
             <v-autocomplete
@@ -49,7 +49,7 @@
                 :disabled="disabled"
                 @click="onAddService"
             >
-                Добавить услугу
+                Добавить {{ this.bundle === 'service' ? 'услугу' : 'товар' }}
             </v-btn>
         </div>
         <AddService
@@ -115,6 +115,11 @@ export default {
                 }
             });
         },
+        hintMessage() {
+            return `Выберите из списка уже имеющихся ${
+                this.bundle === 'service' ? 'услуг' : 'товаров'
+            } или создайте ${this.bundle === 'service' ? 'новую' : 'новый'}`;
+        },
     },
     methods: {
         ...mapMutations({
@@ -136,7 +141,7 @@ export default {
             this.DELETE_SERVICE({ bundle: this.bundle, listName: this.type, index });
         },
         onAddService() {
-            this.modal.title = 'Добавить услугу';
+            this.modal.title = this.bundle === 'service' ? 'Добавить услугу' : 'Добавить товар';
             this.modal.item = {
                 id: performance.now(),
                 title: '',
@@ -147,7 +152,8 @@ export default {
         },
         onEditService(item, index) {
             this.modal.item = item;
-            this.modal.title = 'Редактировать услугу';
+            this.modal.title =
+                this.bundle === 'service' ? 'Редактировать услугу' : 'Редактировать товар';
             this.modal.isEdit = true;
             this.modal.itemIndex = index;
             this.modal.open = true;

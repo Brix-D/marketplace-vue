@@ -49,26 +49,45 @@
                         </v-btn>
                     </div>
                 </div>
-                <div class="services d-flex justify-space-between mt-4">
-                    <!-- TODO set bundle type-->
-                    <NewServiceList
-                        :items="CURRENT('service', 'demand')"
-                        type="demand"
-                        bundle="service"
-                        title="По этим потребностям вам прийдет уведомление"
-                        class="services__list"
-                        :existing-items="SUGGESTION('service', 'demand')"
-                        :disabled="!LOGGED"
-                    />
-                    <NewServiceList
-                        :items="CURRENT('service', 'offer')"
-                        type="offer"
-                        bundle="service"
-                        title="Эти предложения будут видны всем пользователям"
-                        class="services__list"
-                        :existing-items="SUGGESTION('service', 'offer')"
-                        :disabled="!LOGGED"
-                    />
+                <div class="tabs__header rounded-lg mt-4">
+                    <v-tabs
+                        v-model="activeTab"
+                        class="rounded-lg"
+                        hide-slider
+                        :color="$vuetify.theme.currentTheme.info"
+                        :background-color="$vuetify.theme.currentTheme.secondaryLight"
+                    >
+                        <v-tab v-for="(tab, index) in tabs" :key="index" :ripple="false">
+                            {{ tab.name }}
+                        </v-tab>
+                    </v-tabs>
+                </div>
+                <div class="tabs__body">
+                    <v-tabs-items v-model="activeTab">
+                        <v-tab-item v-for="(tab, index) in tabs" :key="index" :transition="false">
+                            <div class="services d-flex justify-space-between mt-4">
+                                <!-- TODO set bundle type-->
+                                <NewServiceList
+                                    :items="CURRENT(tab.value, 'demand')"
+                                    type="demand"
+                                    :bundle="tab.value"
+                                    title="По этим потребностям вам прийдет уведомление"
+                                    class="services__list"
+                                    :existing-items="SUGGESTION(tab.value, 'demand')"
+                                    :disabled="!LOGGED"
+                                />
+                                <NewServiceList
+                                    :items="CURRENT(tab.value, 'offer')"
+                                    type="offer"
+                                    :bundle="tab.value"
+                                    title="Эти предложения будут видны всем пользователям"
+                                    class="services__list"
+                                    :existing-items="SUGGESTION(tab.value, 'offer')"
+                                    :disabled="!LOGGED"
+                                />
+                            </div>
+                        </v-tab-item>
+                    </v-tabs-items>
                 </div>
                 <div class="services__save mt-4 d-flex justify-end">
                     <v-btn
@@ -100,6 +119,17 @@ export default {
             email: '',
             phone: '',
             LOGGED: true,
+            activeTab: 0,
+            tabs: [
+                {
+                    name: 'Товары',
+                    value: 'goods',
+                },
+                {
+                    name: 'Услуги',
+                    value: 'service',
+                },
+            ],
         };
     },
     computed: {
@@ -196,11 +226,11 @@ export default {
     &__info {
         display: grid;
         row-gap: 16px;
-        width: 30%;
+        width: 32%;
     }
     &__login {
         align-self: center;
-        width: 30%;
+        width: 32%;
         display: grid;
         row-gap: 16px;
         justify-content: end;
@@ -208,9 +238,17 @@ export default {
 }
 .services {
     &__list {
-        width: calc(30% + 8px);
+        width: calc(32% + 8px);
     }
     &__save {
+    }
+}
+.tabs {
+    &__header {
+        & .v-tab--active {
+            background-color: #fff;
+            border-radius: 8px 8px 0 0;
+        }
     }
 }
 </style>
