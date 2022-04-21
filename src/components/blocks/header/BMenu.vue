@@ -160,8 +160,6 @@ export default {
     data() {
         return {
             menuIsOpen: false,
-            // // TODO получить статус авторизации с бека
-            // isLogged: true,
             mainMenu: [
                 {
                     name: 'Предложения',
