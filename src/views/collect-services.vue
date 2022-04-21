@@ -2,7 +2,7 @@
     <div>
         <v-row dense>
             <v-col cols="12">
-                <h1 class="h2">Разместите ваши услуги и предложения</h1>
+                <h1 class="h2">Разместите ваши товары, услуги и предложения</h1>
                 <div class="mt-4 contact__wrapper pa-4 rounded-lg d-flex justify-space-between">
                     <div class="contact__info">
                         <!--                    <v-select-->
