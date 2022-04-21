@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import index from '../views/index';
-import catalog from '../views/catalog';
-import catalogDemand from '../views/catalog/demand';
-import serviceView from '../views/service/view';
-import serviceCreate from '../views/service/create';
+const catalog = () => import('../views/catalog');
+const catalogDemand = () => import('../views/catalog/demand');
+const serviceView = () => import('../views/service/view');
+const serviceCreate = () => import('../views/service/create');
 
-import profile from '../views/profile/index';
-import profileSettings from '../views/profile/sections/settings';
-import profileFinances from '../views/profile/sections/finances';
-import profileReviews from '../views/profile/sections/reviews';
-import collectServices from '../views/collect-services';
+const profile = () => import('../views/profile/index');
+const profileSettings = () => import('../views/profile/sections/settings');
+const profileFinances = () => import('../views/profile/sections/finances');
+const profileReviews = () => import('../views/profile/sections/reviews');
+const collectServices = () => import('../views/collect-services');
 
-import testColors from '../views/test-colors';
+const testColors = () => import('../views/test-colors');
 const isDev = process.env.NODE_ENV === 'development';
 
 Vue.use(VueRouter);

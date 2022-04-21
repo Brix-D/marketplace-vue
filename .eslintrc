@@ -115,6 +115,7 @@
         "vue/no-confusing-v-for-v-if": "error",
         "object-shorthand": "error"
     },
+    "parser": "@babel/eslint-parser",
     //    "parserOptions": {
     //        "parser": "eslint-parser",
     //        "sourceType": "module",

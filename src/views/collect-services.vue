@@ -23,7 +23,7 @@
                         <v-text-field v-model="email" label="Email" outlined hide-details />
                         <v-text-field v-model="phone" label="Телефон" outlined hide-details />
                     </div>
-                    <div v-if="!USER_INFO.isLogged" class="contact__login">
+                    <div v-if="!LOGGED" class="contact__login">
                         <p class="subtitle-1 my-0">
                             Для размещения услуг необходимо зарегистрироватся
                         </p>

@@ -173,6 +173,10 @@ export default {
                     name: 'Заказы',
                     to: { name: 'index' },
                 },
+                {
+                    name: 'Разместить услуги',
+                    to: { name: 'collectServices' },
+                },
             ],
             authMenu: [
                 {
