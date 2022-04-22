@@ -1,3 +1,5 @@
+import userFixture from './fixtures/user.json';
+const isDev = process.env.NODE_ENV === 'development';
 import { axios } from '@/plugins/axios';
 
 export const state = () => ({
@@ -18,8 +20,13 @@ export const actions = {
                 _format: 'json',
             },
         });
-        console.log('response', response.data);
-        commit('SET_USER_INFO', response.data);
+        if (!isDev) {
+            console.log('--- user info data', response.data);
+            commit('SET_USER_INFO', response.data);
+        } else {
+            console.log('--- in development used local user fixture', userFixture);
+            commit('SET_USER_INFO', userFixture);
+        }
     },
 };
 
