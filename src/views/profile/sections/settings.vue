@@ -30,6 +30,41 @@
                 />
             </template>
         </div>
+        <div v-if="user.isCompany" class="user__company">
+            <div class="company__title mt-4">
+                <span class="font-weight-medium">Данные о компании:</span>
+            </div>
+            <v-text-field v-model="company.ogrn" label="ОГРН" outlined hide-details class="mt-5" />
+            <v-select
+                v-model="company.ownership"
+                outlined
+                hide-details
+                class="mt-5"
+                label="Форма собственности"
+                :items="company.forms"
+            />
+            <v-text-field
+                v-model="company.okved"
+                label="ОКВЭД"
+                outlined
+                hide-details
+                class="mt-5"
+            />
+            <v-text-field
+                v-model="company.address"
+                label="Адрес"
+                outlined
+                hide-details
+                class="mt-5"
+            />
+            <v-text-field
+                v-model="company.certificate"
+                label="Свидетельство о регистрации"
+                outlined
+                hide-details
+                class="mt-5"
+            />
+        </div>
         <div class="user__password mt-4 d-flex flex-column align-center">
             <div class="user__password-label font-weight-medium">Сменить пароль</div>
             <v-btn
@@ -57,11 +92,19 @@ export default {
     data() {
         return {
             user: {
-                isCompany: false,
+                isCompany: true,
                 isPerson: true,
                 name: '',
                 email: '',
                 phone: '',
+            },
+            company: {
+                ogrn: '',
+                okved: '',
+                address: '',
+                certificate: '',
+                ownership: '',
+                forms: ['Частная собсвенность', 'Федеральная собсвенность'],
             },
         };
     },
@@ -74,7 +117,7 @@ export default {
             if (this.user.isPerson) {
                 role.push('Частное лицо');
             }
-            return role.join(',');
+            return role.join(', ');
         },
     },
 };
