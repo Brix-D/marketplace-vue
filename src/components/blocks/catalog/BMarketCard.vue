@@ -9,7 +9,7 @@
         <v-card-title class="card__title">{{ title }}</v-card-title>
         <v-card-subtitle class="card__subtitle">
             <p>{{ category }}</p>
-            <p>{{ author }}</p>
+            <p>{{ type }}</p>
         </v-card-subtitle>
         <v-card-text class="card__description pb-0 mb-4">{{ description }}</v-card-text>
         <v-card-title class="pt-0 mt-auto">{{ numberToPrice(price) }}</v-card-title>
@@ -43,10 +43,14 @@ export default {
             type: String,
             required: true,
         },
-        author: {
+        type: {
             type: String,
             required: true,
         },
+        // author: {
+        //     type: String,
+        //     required: true,
+        // },
         price: {
             type: Number,
             required: true,

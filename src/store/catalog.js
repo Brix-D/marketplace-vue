@@ -25,7 +25,12 @@ export const actions = {
             },
         });
         // const dataArray = Object.values(data);
-        const catalog = data.map((service) => prettifyService(service));
+        const catalog = [];
+        data.forEach((contact) => {
+            const contactId = parseInt(contact.id[0].value);
+            catalog.push(...contact.products.map((service) => prettifyService(contactId, service)));
+        });
+
         commit('SET_CATALOG', catalog);
     },
 };

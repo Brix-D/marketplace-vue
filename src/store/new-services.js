@@ -55,8 +55,9 @@ export const actions = {
                 _format: 'json',
             },
         });
-        response.data.forEach((service) => {
-            result.push(prettifyService(service));
+        response.data.forEach((contact) => {
+            const contactId = parseInt(contact.id[0].value);
+            result.push(...contact.products.map((service) => prettifyService(contactId, service)));
         });
         commit('SET_SUGGESTION', { bundle: typeBundle, type: typeCatalog, data: result });
     },
