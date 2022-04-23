@@ -9,10 +9,16 @@
                 label="Поиск..."
                 clearable
                 :color="$vuetify.theme.currentTheme.secondary"
+                @keypress.enter="APPLY_SEARCH(searchValue)"
             />
         </div>
         <div class="ml-4 search__background">
-            <v-btn outlined :color="$vuetify.theme.currentTheme.secondary" min-height="56">
+            <v-btn
+                outlined
+                :color="$vuetify.theme.currentTheme.secondary"
+                min-height="56"
+                @click="APPLY_SEARCH(searchValue)"
+            >
                 Поиск
             </v-btn>
         </div>
@@ -20,12 +26,19 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
     name: 'BSearch',
     data() {
         return {
             searchValue: '',
         };
+    },
+    methods: {
+        ...mapMutations({
+            APPLY_SEARCH: 'filters/APPLY_SEARCH',
+        }),
     },
 };
 </script>

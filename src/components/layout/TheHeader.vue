@@ -8,32 +8,28 @@
             </v-row>
         </v-container>
         <BMenu class="" />
-        <v-container v-if="showSearch" fluid class="py-2 mt-2 wrapper">
-            <BSearch />
-        </v-container>
     </div>
 </template>
 
 <script>
 import BSlider from '@/components/blocks/header/BSlider';
 import BMenu from '@/components/blocks/header/BMenu';
-import BSearch from '@/components/blocks/header/BSearch';
+
 export default {
     name: 'TheHeader',
     components: {
         BSlider,
         BMenu,
-        BSearch,
     },
     props: {
         showSlider: {
             type: Boolean,
             default: false,
         },
-        showSearch: {
-            type: Boolean,
-            default: false,
-        },
+        // showSearch: {
+        //     type: Boolean,
+        //     default: false,
+        // },
     },
     data() {
         return {};
