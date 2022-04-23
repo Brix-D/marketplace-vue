@@ -174,7 +174,7 @@ export default {
                     to: { name: 'index' },
                 },
                 {
-                    name: 'Разместить объявления',
+                    name: 'Разместить продукты',
                     to: { name: 'collectServices' },
                 },
             ],
