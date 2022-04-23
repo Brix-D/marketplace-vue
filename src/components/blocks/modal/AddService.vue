@@ -3,6 +3,8 @@
         <template #default>
             <v-text-field v-model="localItem.title" label="Название" outlined />
             <v-textarea v-model="localItem.description" label="Описание" outlined />
+            <v-text-field v-model="localItem.price" label="Цена" outlined />
+            <v-text-field v-model="localItem.category" label="Категория" outlined />
         </template>
         <template #footer>
             <v-btn

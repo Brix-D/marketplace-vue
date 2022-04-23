@@ -61,7 +61,10 @@ export const actions = {
         });
         commit('SET_SUGGESTION', { bundle: typeBundle, type: typeCatalog, data: result });
     },
-    async CREATE_SERVICE({ commit, rootGetters, dispatch }, { bundle, title, description, type }) {
+    async CREATE_SERVICE(
+        { commit, rootGetters, dispatch },
+        { bundle, title, description, type, price, category }
+    ) {
         if (!rootGetters['token/CSRF_TOKEN']) {
             dispatch('token/GET_CSRF', null, { root: true });
         }
@@ -108,9 +111,9 @@ export const actions = {
                         value: type,
                     },
                 ],
-                field_price: [{ number: 0, currency_code: 'RUB' }],
+                field_price: [{ number: price, currency_code: 'RUB' }],
                 field_deficit: [{ value: true }],
-                field_category: [{ value: 'нет' }],
+                field_category: [{ value: category }],
             },
             {
                 withCredentials: true,
