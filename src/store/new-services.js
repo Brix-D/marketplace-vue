@@ -106,11 +106,11 @@ export const actions = {
                     },
                 ],
                 default_variation: [{ target_id: null }],
-                field_tip: [
-                    {
-                        value: type,
-                    },
-                ],
+                // field_tip: [
+                //     {
+                //         value: type,
+                //     },
+                // ],
                 field_price: [{ number: price, currency_code: 'RUB' }],
                 field_deficit: [{ value: true }],
                 field_category: [{ value: category }],
