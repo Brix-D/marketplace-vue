@@ -2,6 +2,7 @@ import { axios } from '@/plugins/axios';
 import { prettifyService } from '@/utils';
 
 export const state = () => ({
+    categories: [],
     suggestion: {
         service: {
             offer: [],
@@ -31,6 +32,9 @@ export const mutations = {
     SET_CURRENT(state, { bundle, type, data }) {
         state.items[bundle][type] = [...data];
     },
+    SET_CATEGORIES(state, categories) {
+        state.categories = [...categories];
+    },
     ADD_SERVICE(state, { bundle, listName, service }) {
         state.items[bundle][listName].push(service);
     },
@@ -46,6 +50,17 @@ export const mutations = {
 };
 
 export const actions = {
+    async GET_CATEGORIES({ commit }, { typeCatalog, typeBundle }) {
+        const response = await axios.get(`/api/v1/categories/${typeCatalog}`, {
+            withCredentials: true,
+            params: {
+                product: typeBundle,
+                _format: 'json',
+            },
+        });
+        console.log(`categories ${typeCatalog} ${typeBundle}`, response.data);
+        commit('SET_CATEGORIES', response.data);
+    },
     async GET_SUGGESTION_SERVICES({ commit }, { typeCatalog, typeBundle }) {
         const result = [];
         const response = await axios.get(`/api/v1/catalog/${typeCatalog}`, {
@@ -63,21 +78,25 @@ export const actions = {
     },
     async CREATE_SERVICE(
         { commit, rootGetters, dispatch },
-        { bundle, title, description, type, price, category }
+        { bundle, title, description, type, price, categoryId }
     ) {
         if (!rootGetters['token/CSRF_TOKEN']) {
             dispatch('token/GET_CSRF', null, { root: true });
         }
         let bundleField;
+        let categoryField;
         switch (bundle) {
             case 'service':
                 bundleField = 'uslugi';
+                categoryField = 'field_kategoriya_uslug';
                 break;
             case 'goods':
                 bundleField = 'default';
+                categoryField = 'field_kategoriya_tovara';
                 break;
             default:
                 bundleField = null;
+                categoryField = null;
                 throw 'Неверный тип bundle';
         }
         const token = rootGetters['token/CSRF_TOKEN'];
@@ -113,7 +132,7 @@ export const actions = {
                 // ],
                 field_price: [{ number: price, currency_code: 'RUB' }],
                 field_deficit: [{ value: true }],
-                field_category: [{ value: category }],
+                [categoryField]: [{ target_id: categoryId }],
             },
             {
                 withCredentials: true,

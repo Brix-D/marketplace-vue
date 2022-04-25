@@ -193,7 +193,7 @@ export default {
                                 title: item.title,
                                 description: item.description,
                                 price: item.price,
-                                category: item.category,
+                                categoryId: item.categoryId,
                                 type: type.verbose,
                             });
                             if (!!id) {

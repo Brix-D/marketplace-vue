@@ -63,7 +63,7 @@
     </div>
 </template>
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import AddService from '@/components/blocks/modal/AddService';
 
 export default {
@@ -127,6 +127,9 @@ export default {
             DELETE_SERVICE: 'newServices/DELETE_SERVICE',
             EDIT_SERVICE: 'newServices/EDIT_SERVICE',
         }),
+        ...mapActions({
+            GET_CATEGORIES: 'newServices/GET_CATEGORIES',
+        }),
         onSelectService(event) {
             if (!!event) {
                 this.ADD_SERVICE({
@@ -141,6 +144,7 @@ export default {
             this.DELETE_SERVICE({ bundle: this.bundle, listName: this.type, index });
         },
         onAddService() {
+            this.GET_CATEGORIES({ typeCatalog: this.type, typeBundle: this.bundle });
             this.modal.title = this.bundle === 'service' ? 'Добавить услугу' : 'Добавить товар';
             this.modal.item = {
                 id: performance.now(),
@@ -151,6 +155,7 @@ export default {
             this.modal.open = true;
         },
         onEditService(item, index) {
+            this.GET_CATEGORIES({ typeCatalog: this.type, typeBundle: this.bundle });
             this.modal.item = item;
             this.modal.title =
                 this.bundle === 'service' ? 'Редактировать услугу' : 'Редактировать товар';

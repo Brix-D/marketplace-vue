@@ -6,6 +6,7 @@ export function prettifyService(contactId, service) {
         description: service.description || '',
         type: service.type[0].target_id === 'uslugi' ? 'Услуга' : 'Товар',
         category: service.category,
+        categoryId: service.categoryId,
         price: parseFloat(service.field_price[0].number),
         // author: service.author,
         // bundle: service.type[0].target_id,
