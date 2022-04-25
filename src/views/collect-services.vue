@@ -4,7 +4,10 @@
             <v-col cols="12">
                 <h1 class="h2">Разместите ваши товары, услуги и предложения</h1>
                 <div class="mt-4 contact__wrapper pa-4 rounded-lg d-flex justify-space-between">
-                    <div class="contact__info">
+                    <div
+                        class="contact__info"
+                        :class="{ 'contact__info--limited': !$vuetify.breakpoint.mobile }"
+                    >
                         <!--                    <v-select-->
                         <!--                        v-model="type"-->
                         <!--                        label="Тип услуги"-->
@@ -69,7 +72,10 @@
                             :key="index"
                             :transition="false"
                         >
-                            <div class="services d-flex justify-space-between mt-4">
+                            <div
+                                class="services d-flex justify-space-between mt-4"
+                                :class="{ 'flex-column': $vuetify.breakpoint.mobile }"
+                            >
                                 <NewServiceList
                                     v-for="type in typeData"
                                     :key="type.value"
@@ -78,6 +84,9 @@
                                     :bundle="tab.value"
                                     :title="type.title"
                                     class="services__list"
+                                    :class="{
+                                        'services__list--limited': !$vuetify.breakpoint.mobile,
+                                    }"
                                     :existing-items="SUGGESTION(tab.value, type.value)"
                                     :disabled="!LOGGED"
                                 />
@@ -90,11 +99,13 @@
                         :color="$vuetify.theme.currentTheme.info"
                         :dark="LOGGED"
                         x-large
-                        class="rounded-lg px-10"
+                        class="rounded-lg"
+                        :class="{ 'px-10': !$vuetify.breakpoint.mobile }"
+                        :block="$vuetify.breakpoint.mobile"
                         :disabled="!LOGGED"
                         @click="onSave"
                     >
-                        Сохранить и перейти к просмотру
+                        Сохранить
                     </v-btn>
                 </div>
             </v-col>
@@ -114,8 +125,6 @@ export default {
             company: '',
             email: '',
             phone: '',
-            // TODO for local dev
-            //LOGGED: true,
             activeTab: 0,
             bundles: [
                 {
@@ -230,7 +239,10 @@ export default {
     &__info {
         display: grid;
         row-gap: 16px;
-        width: 32%;
+        width: 100%;
+        &--limited {
+            width: 32%;
+        }
     }
     &__login {
         align-self: center;
@@ -242,7 +254,15 @@ export default {
 }
 .services {
     &__list {
-        width: calc(32% + 8px);
+        width: 100%;
+        @media screen and (max-width: 960px) {
+            & + & {
+                margin-top: 16px;
+            }
+        }
+        &--limited {
+            width: calc(32% + 8px);
+        }
     }
     &__save {
     }
