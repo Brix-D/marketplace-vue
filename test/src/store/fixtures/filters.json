@@ -1,0 +1,51 @@
+{
+  "items": {
+    "groups": [
+      {
+        "groupId": 1,
+        "alias": "category",
+        "name": "Категория",
+        "variations": [
+          {
+            "variationId": 1,
+            "name": "Строительные материалы"
+          },
+          {
+            "variationId": 3,
+            "name": "Оборудование"
+          },
+          {
+            "variationId": 5,
+            "name": "ИТ услуги"
+          },
+          {
+            "variationId": 6,
+            "name": "Ремонт помещений"
+          }
+        ]
+      },
+      {
+        "alias": "type",
+        "name": "Тип",
+        "variations": [
+          {
+            "variationId": 1,
+            "name": "Услуга"
+          },
+          {
+            "variationId": 2,
+            "name": "Товар"
+          }
+        ]
+      }
+    ],
+    "maxPrice": 11111,
+    "minPrice": 0
+  },
+  "selected": {
+    "category": [
+      5
+    ]
+  },
+  "search": ""
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "id": 9,
+    "uniqueId": 11,
+    "title": "Гвозди",
+    "description": "",
+    "type": "Товар",
+    "category": "Строительные материалы",
+    "categoryId": 27,
+    "price": 0
+  },
+  {
+    "id": 9,
+    "uniqueId": 12,
+    "title": "Гвозди",
+    "description": "",
+    "type": "Товар",
+    "category": "Строительные материалы",
+    "categoryId": 27,
+    "price": 0
+  },
+  {
+    "id": 22,
+    "uniqueId": 26,
+    "title": "Сборный волоконный разъем lc (Быстрый)",
+    "description": "",
+    "type": "Товар",
+    "category": "Оборудование",
+    "categoryId": 29,
+    "price": 0
+  },
+  {
+    "id": 10,
+    "uniqueId": 15,
+    "title": "Проволока из низко углеродистой стали ГОСТ 3282-74",
+    "description": "",
+    "type": "Товар",
+    "category": "Строительные материалы",
+    "categoryId": 27,
+    "price": 0
+  },
+  {
+    "id": 23,
+    "uniqueId": 29,
+    "title": "Форма потребностей",
+    "description": "верстка\r\n",
+    "type": "Услуга",
+    "category": "ИТ услуги",
+    "categoryId": 20,
+    "price": 0
+  },
+  {
+    "id": 61,
+    "uniqueId": 77,
+    "title": "Покраска забора",
+    "description": "Покрашу ваш забор любой краской, гарантия качества\r\n",
+    "type": "Услуга",
+    "category": "Ремонт помещений",
+    "categoryId": 25,
+    "price": 2000
+  },
+  {
+    "id": 64,
+    "uniqueId": 81,
+    "title": "sdaf",
+    "description": "afasf",
+    "type": "Товар",
+    "category": "Строительные материалы",
+    "categoryId": 27,
+    "price": 8888
+  },
+  {
+    "id": 22,
+    "uniqueId": 39,
+    "title": "Сборный волоконный разъем lc (Быстрый)",
+    "description": "",
+    "type": "Товар",
+    "category": "Оборудование",
+    "categoryId": 29,
+    "price": 0
+  },
+  {
+    "id": 22,
+    "uniqueId": 40,
+    "title": "Сборный волоконный разъем lc (Быстрый)",
+    "description": "",
+    "type": "Товар",
+    "category": "Оборудование",
+    "categoryId": 29,
+    "price": 0
+  },
+  {
+    "id": 67,
+    "uniqueId": 85,
+    "title": "gdssd",
+    "description": "sdgsdds",
+    "type": "Товар",
+    "category": "Строительные материалы",
+    "categoryId": 27,
+    "price": 11111
+  }
+]
