@@ -1,4 +1,6 @@
 import activeService from './fixtures/activeService.json';
+import { axios } from '@/plugins/axios';
+import { prettifyService } from '@/utils';
 
 export const state = () => ({
     item: {},
@@ -12,7 +14,14 @@ export const mutations = {
 
 export const actions = {
     async GET_SERVICE({ commit }, { id }) {
-        commit('SET_SERVICE', activeService);
+        let { data: service } = await axios.get(`/api/v1/oneproduct/${id}`, {
+            withCredentials: true,
+            params: {
+                _format: 'json',
+            },
+        });
+        service = prettifyService(service);
+        commit('SET_SERVICE', service);
     },
 };
 

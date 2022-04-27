@@ -28,7 +28,7 @@ export const actions = {
         const catalog = [];
         data.forEach((contact) => {
             const contactId = parseInt(contact.id[0].value);
-            catalog.push(...contact.products.map((service) => prettifyService(contactId, service)));
+            catalog.push(...contact.products.map((service) => prettifyService(service, contactId)));
         });
 
         commit('SET_CATALOG', catalog);
