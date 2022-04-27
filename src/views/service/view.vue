@@ -1,43 +1,52 @@
 <template>
     <div>
-        <v-container class="wrapper rounded-lg pa-4 d-flex flex-column">
-            <h1
-                :class="{
-                    'text-h3': !$vuetify.breakpoint.mobile,
-                    'text-h4': $vuetify.breakpoint.mobile,
-                }"
-            >
-                {{ service.title }}
-            </h1>
-            <h3 class="text-subtitle-1 mt-4 service__subtitle">{{ service.category }}</h3>
-            <PicturesCarousel
-                v-if="!!service.pictures.length"
-                :items="service.pictures"
-                class="mt-4"
-            />
-            <div class="mt-4 service__description text-body-1">{{ service.description }}</div>
-            <div class="service__price mt-4">
-                <span class="service__price-caption text-subtitle-1">Стоимость:</span>
-                <span class="text-h3 service__price-value">{{ numberToPrice(service.price) }}</span>
+        <v-container class="wrapper rounded-lg pa-4 d-flex flex-column service">
+            <div v-if="!loading" class="d-flex flex-column flex-grow-1">
+                <h1
+                    :class="{
+                        'text-h3': !$vuetify.breakpoint.mobile,
+                        'text-h4': $vuetify.breakpoint.mobile,
+                    }"
+                >
+                    {{ service.title }}
+                </h1>
+                <h3 class="text-subtitle-1 mt-4 service__subtitle">{{ service.category }}</h3>
+                <h3 class="text-subtitle-1 mt-4 service__subtitle">{{ service.type }}</h3>
+                <!--            <PicturesCarousel-->
+                <!--                v-if="!!service.pictures.length"-->
+                <!--                :items="service.pictures"-->
+                <!--                class="mt-4"-->
+                <!--            />-->
+                <div class="mt-4 service__description text-body-1">{{ service.description }}</div>
+                <div class="service__price mt-auto">
+                    <span class="service__price-caption text-subtitle-1">Стоимость:&nbsp;</span>
+                    <span class="text-h3 service__price-value">
+                        {{ numberToPrice(service.price) }}
+                    </span>
+                </div>
+                <!--            <div-->
+                <!--                class="d-flex justify-space-between mt-4"-->
+                <!--                :class="{ 'flex-column': $vuetify.breakpoint.mobile }"-->
+                <!--            >-->
+                <!--                <p class="service__author text-caption">Автор объявления: {{ service.author }}</p>-->
+                <!--                <p class="service__date text-caption">Объявление размещено: {{ service.date }}</p>-->
+                <!--            </div>-->
+                <div class="mt-4 d-flex justify-center">
+                    <v-btn
+                        :color="$vuetify.theme.currentTheme.info"
+                        dark
+                        large
+                        depressed
+                        class="rounded-lg"
+                        :class="{
+                            'px-10 service__button': !$vuetify.breakpoint.mobile,
+                        }"
+                        :block="$vuetify.breakpoint.mobile"
+                    >
+                        Заказать
+                    </v-btn>
+                </div>
             </div>
-            <div
-                class="d-flex justify-space-between mt-4"
-                :class="{ 'flex-column': $vuetify.breakpoint.mobile }"
-            >
-                <p class="service__author text-caption">Автор объявления: {{ service.author }}</p>
-                <p class="service__date text-caption">Объявление размещено: {{ service.date }}</p>
-            </div>
-            <v-btn
-                :color="$vuetify.theme.currentTheme.info"
-                dark
-                large
-                depressed
-                class="rounded-lg"
-                :class="{ 'align-self-center px-10 service__button': !$vuetify.breakpoint.mobile }"
-                :block="$vuetify.breakpoint.mobile"
-            >
-                Заказать
-            </v-btn>
         </v-container>
     </div>
 </template>
@@ -53,6 +62,7 @@ export default {
     computed: {
         ...mapState({
             service: (state) => state.activeService.item,
+            loading: (state) => state.activeService.loading,
         }),
     },
     async created() {
@@ -77,6 +87,7 @@ export default {
 //    color: #eea135;
 //}
 .service {
+    min-height: calc(100vh - 124px);
     &__subtitle {
         font-size: 1.5rem !important;
     }
