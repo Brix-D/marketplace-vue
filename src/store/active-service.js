@@ -17,9 +17,9 @@ export const mutations = {
 };
 
 export const actions = {
-    async GET_SERVICE({ commit }, { id }) {
+    async GET_SERVICE({ commit }, { id, contactId }) {
         commit('SET_LOADING', true);
-        let { data: service } = await axios.get(`/api/v1/oneproduct/${id}`, {
+        let { data: service } = await axios.get(`/api/v1/oneproduct/${id}/${contactId}`, {
             withCredentials: true,
             params: {
                 _format: 'json',

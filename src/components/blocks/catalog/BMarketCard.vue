@@ -18,7 +18,7 @@
                 :color="$vuetify.theme.currentTheme.info"
                 dark
                 class="px-10 rounded-lg"
-                :to="{ name: 'serviceView', params: { id } }"
+                :to="{ name: 'serviceView', params: { id, contactId } }"
             >
                 Детали
             </v-btn>
@@ -57,6 +57,10 @@ export default {
         },
         description: {
             type: String,
+            required: true,
+        },
+        contactId: {
+            type: Number,
             required: true,
         },
     },

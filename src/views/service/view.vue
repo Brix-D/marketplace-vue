@@ -32,19 +32,36 @@
                 <!--                <p class="service__date text-caption">Объявление размещено: {{ service.date }}</p>-->
                 <!--            </div>-->
                 <div class="mt-4 d-flex justify-center">
-                    <v-btn
-                        :color="$vuetify.theme.currentTheme.info"
-                        dark
-                        large
-                        depressed
-                        class="rounded-lg"
-                        :class="{
-                            'px-10 service__button': !$vuetify.breakpoint.mobile,
-                        }"
-                        :block="$vuetify.breakpoint.mobile"
-                    >
-                        Заказать
-                    </v-btn>
+                    <div class="service__buttons">
+                        <v-btn
+                            v-if="service.isOffer"
+                            :color="$vuetify.theme.currentTheme.info"
+                            dark
+                            large
+                            depressed
+                            class="rounded-lg"
+                            :class="{
+                                'px-10 service__button': !$vuetify.breakpoint.mobile,
+                            }"
+                            :block="$vuetify.breakpoint.mobile"
+                        >
+                            Заказать
+                        </v-btn>
+                        <v-btn
+                            v-if="service.isDemand"
+                            :color="$vuetify.theme.currentTheme.info"
+                            dark
+                            large
+                            depressed
+                            class="rounded-lg"
+                            :class="{
+                                'px-10 service__button': !$vuetify.breakpoint.mobile,
+                            }"
+                            :block="$vuetify.breakpoint.mobile"
+                        >
+                            Откликнутся на потребность
+                        </v-btn>
+                    </div>
                 </div>
             </div>
         </v-container>
@@ -53,12 +70,12 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import PicturesCarousel from '@/components/blocks/service/PicturesCarousel';
+//import PicturesCarousel from '@/components/blocks/service/PicturesCarousel';
 import { numberToPrice } from '@/utils';
 
 export default {
     name: 'ServiceView',
-    components: { PicturesCarousel },
+    //components: { PicturesCarousel },
     computed: {
         ...mapState({
             service: (state) => state.activeService.item,
@@ -66,7 +83,10 @@ export default {
         }),
     },
     async created() {
-        await this.GET_SERVICE({ id: this.$route.params.id });
+        await this.GET_SERVICE({
+            id: this.$route.params.id,
+            contactId: this.$route.params.contactId,
+        });
     },
     methods: {
         numberToPrice,
@@ -107,6 +127,10 @@ export default {
     &__author {
     }
     &__date {
+    }
+    &__buttons {
+        display: grid;
+        row-gap: 16px;
     }
     &__button {
         //font-size: 1.2rem !important;

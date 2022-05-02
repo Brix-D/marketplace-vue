@@ -15,6 +15,12 @@ export function prettifyService(service, contactId = null) {
         // bundle: service.type[0].target_id,
         // TODO сделать фото на беке
         //photo: process.env.VUE_APP_BASE_API_URI + service.field_photo,
+        ...(service.isOffer && {
+            isOffer: service.isOffer,
+        }),
+        ...(service.isDemand && {
+            isDemand: service.isDemand,
+        }),
     };
 }
 

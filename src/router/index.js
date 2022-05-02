@@ -47,7 +47,7 @@ const routes = [
         component: collectServices,
     },
     {
-        path: '/service/:id',
+        path: '/service/:id/:contactId',
         name: 'serviceView',
         component: serviceView,
         //meta: { title: `${} | ` + appName },
