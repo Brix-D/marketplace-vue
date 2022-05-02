@@ -121,7 +121,7 @@ export const actions = {
                 ],
                 stores: [
                     {
-                        target_id: 0,
+                        target_id: 1,
                     },
                 ],
                 default_variation: [{ target_id: null }],
@@ -142,6 +142,64 @@ export const actions = {
             }
         );
         return response.data.product_id[0].value;
+    },
+    async CREATE_SERVICE_VARIATION(
+        { commit, rootGetters, dispatch },
+        { bundle, article, productId, price, title }
+    ) {
+        if (!rootGetters['token/CSRF_TOKEN']) {
+            dispatch('token/GET_CSRF', null, { root: true });
+        }
+        let bundleField;
+        switch (bundle) {
+            case 'service':
+                bundleField = 'uslugi';
+                break;
+            case 'goods':
+                bundleField = 'goods';
+                break;
+            default:
+                bundleField = null;
+                throw 'Неверный тип bundle';
+        }
+        const token = rootGetters['token/CSRF_TOKEN'];
+        const data = {
+            type: [
+                {
+                    target_id: bundleField,
+                },
+            ],
+            sku: [
+                {
+                    value: article.toString(),
+                },
+            ],
+            title: [
+                {
+                    value: title,
+                },
+            ],
+            product_id: [
+                {
+                    target_id: productId,
+                },
+            ],
+            price: [
+                {
+                    number: price,
+                    currency_code: 'RUB',
+                },
+            ],
+        };
+        const response = await axios.post('/entity/commerce_product_variation', data, {
+            withCredentials: true,
+            params: {
+                _format: 'json',
+            },
+            headers: {
+                'X-CSRF-Token': token,
+            },
+        });
     },
     async CREATE_CONTACT_DATA({ commit, dispatch, rootGetters, state }, { company, email, phone }) {
         if (!rootGetters['token/CSRF_TOKEN']) {

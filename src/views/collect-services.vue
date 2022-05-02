@@ -171,6 +171,7 @@ export default {
             GET_SUGGESTION_SERVICES: 'newServices/GET_SUGGESTION_SERVICES',
             CREATE_SERVICE: 'newServices/CREATE_SERVICE',
             CREATE_CONTACT_DATA: 'newServices/CREATE_CONTACT_DATA',
+            CREATE_SERVICE_VARIATION: 'newServices/CREATE_SERVICE_VARIATION',
         }),
 
         isServiceExists(catalog, service) {
@@ -202,6 +203,13 @@ export default {
                                     listName: type.value,
                                     index,
                                     id,
+                                });
+                                await this.CREATE_SERVICE_VARIATION({
+                                    bundle: bundle.value,
+                                    article: performance.now().toFixed(0),
+                                    title: item.title,
+                                    productId: id,
+                                    price: item.price,
                                 });
                             }
                         }

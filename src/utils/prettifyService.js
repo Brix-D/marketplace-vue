@@ -4,6 +4,7 @@ export function prettifyService(service, contactId = null) {
         ...(!!contactId && {
             uniqueId: parseInt(service.product_id[0].value) + contactId,
         }),
+        ...(!!contactId && { contactId }),
         title: service.title[0].value || service.title,
         description: service.description || '',
         type: service.type[0].target_id === 'uslugi' ? 'Услуга' : 'Товар',
