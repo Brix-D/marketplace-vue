@@ -44,6 +44,7 @@
                                 'px-10 service__button': !$vuetify.breakpoint.mobile,
                             }"
                             :block="$vuetify.breakpoint.mobile"
+                            @click="saveOrder('offer')"
                         >
                             Заказать
                         </v-btn>
@@ -58,6 +59,7 @@
                                 'px-10 service__button': !$vuetify.breakpoint.mobile,
                             }"
                             :block="$vuetify.breakpoint.mobile"
+                            @click="saveOrder('demand')"
                         >
                             Откликнутся на потребность
                         </v-btn>
@@ -92,7 +94,13 @@ export default {
         numberToPrice,
         ...mapActions({
             GET_SERVICE: 'activeService/GET_SERVICE',
+            SAVE_ORDER: 'activeService/SAVE_ORDER',
+            SAVE_ORDER_ITEM: 'activeService/SAVE_ORDER_ITEM',
         }),
+        async saveOrder(type) {
+            const orderItemId = await this.SAVE_ORDER_ITEM();
+            await this.SAVE_ORDER({ type, orderItemId });
+        },
     },
     metaInfo() {
         return {

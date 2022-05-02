@@ -21,6 +21,7 @@ export function prettifyService(service, contactId = null) {
         ...(service.isDemand && {
             isDemand: service.isDemand,
         }),
+        variationId: parseInt(service?.default_variation[0]?.target_id),
     };
 }
 
