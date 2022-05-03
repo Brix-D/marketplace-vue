@@ -44,6 +44,7 @@
                                 'px-10 service__button': !$vuetify.breakpoint.mobile,
                             }"
                             :block="$vuetify.breakpoint.mobile"
+                            :disabled="!LOGGED"
                             @click="saveOrder('offer')"
                         >
                             Заказать
@@ -59,6 +60,7 @@
                                 'px-10 service__button': !$vuetify.breakpoint.mobile,
                             }"
                             :block="$vuetify.breakpoint.mobile"
+                            :disabled="!LOGGED"
                             @click="saveOrder('demand')"
                         >
                             Откликнутся на потребность
@@ -71,7 +73,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 //import PicturesCarousel from '@/components/blocks/service/PicturesCarousel';
 import { numberToPrice } from '@/utils';
 
@@ -82,6 +84,9 @@ export default {
         ...mapState({
             service: (state) => state.activeService.item,
             loading: (state) => state.activeService.loading,
+        }),
+        ...mapGetters({
+            LOGGED: 'users/LOGGED',
         }),
     },
     async created() {
@@ -98,8 +103,11 @@ export default {
             SAVE_ORDER_ITEM: 'activeService/SAVE_ORDER_ITEM',
         }),
         async saveOrder(type) {
-            const orderItemId = await this.SAVE_ORDER_ITEM();
-            await this.SAVE_ORDER({ type, orderItemId });
+            if (this.LOGGED) {
+                const orderItemId = await this.SAVE_ORDER_ITEM();
+                await this.SAVE_ORDER({ type, orderItemId });
+                this.messageSuccess('Успешно сохранено');
+            }
         },
     },
     metaInfo() {

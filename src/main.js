@@ -8,7 +8,9 @@ import VueMeta from 'vue-meta';
 import store from './store';
 import vuetify from './plugins/vuetify';
 import { axios } from '@/plugins/axios';
+import { toastMessage } from '@/mixins/index';
 
+Vue.use(toastMessage);
 Vue.use(VueMeta);
 Vue.use({
     install(Vue) {
