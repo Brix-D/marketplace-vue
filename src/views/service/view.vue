@@ -36,7 +36,7 @@
                         <v-btn
                             v-if="service.isOffer"
                             :color="$vuetify.theme.currentTheme.info"
-                            dark
+                            :dark="LOGGED"
                             large
                             depressed
                             class="rounded-lg"
@@ -52,7 +52,7 @@
                         <v-btn
                             v-if="service.isDemand"
                             :color="$vuetify.theme.currentTheme.info"
-                            dark
+                            :dark="LOGGED"
                             large
                             depressed
                             class="rounded-lg"
