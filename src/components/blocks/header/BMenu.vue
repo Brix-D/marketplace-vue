@@ -169,10 +169,10 @@ export default {
                     name: 'Запросы',
                     to: { name: 'catalogDemand' },
                 },
-                {
-                    name: 'Заказы',
-                    to: { name: 'index' },
-                },
+                // {
+                //     name: 'Заказы',
+                //     to: { name: 'index' },
+                // },
                 {
                     name: 'Разместить продукты',
                     to: { name: 'collectServices' },
