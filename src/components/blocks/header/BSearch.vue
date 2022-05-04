@@ -11,6 +11,7 @@
                 :color="$vuetify.theme.currentTheme.secondary"
                 @keypress.enter="APPLY_SEARCH(searchValue)"
             />
+            <!--                @click:clear.prevent="clearSearch()"-->
         </div>
         <div class="ml-4 search__background">
             <v-btn
@@ -34,6 +35,13 @@ export default {
         return {
             searchValue: '',
         };
+    },
+    watch: {
+        searchValue(value) {
+            if (value === null) {
+                this.searchValue = '';
+            }
+        },
     },
     methods: {
         ...mapMutations({

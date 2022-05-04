@@ -6,6 +6,14 @@
         class="rounded-lg d-flex flex-column"
         height="100%"
     >
+        <v-img
+            :src="photoSource"
+            :alt="title"
+            width="100%"
+            class="flex-shrink-0"
+            max-height="200px"
+            cover
+        />
         <v-card-title class="card__title">{{ title }}</v-card-title>
         <v-card-subtitle class="card__subtitle">
             <p>{{ category }}</p>
@@ -39,6 +47,10 @@ export default {
             type: String,
             required: true,
         },
+        photo: {
+            type: String,
+            default: '',
+        },
         category: {
             type: String,
             required: true,
@@ -62,6 +74,11 @@ export default {
         contactId: {
             type: Number,
             required: true,
+        },
+    },
+    computed: {
+        photoSource() {
+            return process.env.VUE_APP_BASE_API_URI + this.photo;
         },
     },
     methods: {
