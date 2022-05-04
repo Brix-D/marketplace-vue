@@ -10,6 +10,17 @@
                 >
                     {{ service.title }}
                 </h1>
+                <v-img
+                    :src="photoSource"
+                    :alt="title"
+                    :width="$vuetify.breakpoint.mobile ? '100%' : '80%'"
+                    class="flex-shrink-0 mt-4"
+                    :class="{
+                        'mx-auto': !$vuetify.breakpoint.mobile,
+                    }"
+                    max-height="400px"
+                    cover
+                />
                 <h3 class="text-subtitle-1 mt-4 service__subtitle">{{ service.category }}</h3>
                 <h3 class="text-subtitle-1 mt-4 service__subtitle">{{ service.type }}</h3>
                 <!--            <PicturesCarousel-->
@@ -88,6 +99,9 @@ export default {
         ...mapGetters({
             LOGGED: 'users/LOGGED',
         }),
+        photoSource() {
+            return process.env.VUE_APP_BASE_API_URI + this.service.photo;
+        },
     },
     async created() {
         await this.GET_SERVICE({
