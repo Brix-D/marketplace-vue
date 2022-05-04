@@ -107,6 +107,7 @@ export default {
                 const orderItemId = await this.SAVE_ORDER_ITEM();
                 await this.SAVE_ORDER({ type, orderItemId });
                 this.messageSuccess('Успешно сохранено');
+                await this.$router.back();
             }
         },
     },
