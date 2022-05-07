@@ -16,6 +16,14 @@ export default {
     name: 'CatalogPage',
     metaInfo: {
         title: 'Каталог услуг | servey',
+        meta: [
+            {
+                vmid: 'description',
+                name: 'description',
+                content:
+                    'Маркетплейс услуг - это сервис для организации исполнения услуг и предоставления предложений услуг без прямого взаимодействия между исполнителем и заказчиком.',
+            },
+        ],
     },
     components: {
         TheCatalog,

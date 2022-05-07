@@ -12,7 +12,7 @@
                 </h1>
                 <v-img
                     :src="photoSource"
-                    :alt="title"
+                    :alt="service.title"
                     :width="$vuetify.breakpoint.mobile ? '100%' : '80%'"
                     class="flex-shrink-0 mt-4"
                     :class="{
@@ -128,6 +128,13 @@ export default {
     metaInfo() {
         return {
             title: `${this.service.title} | servey`,
+            meta: [
+                {
+                    vmid: 'description',
+                    name: 'description',
+                    content: this.service.description,
+                },
+            ],
         };
     },
 };
