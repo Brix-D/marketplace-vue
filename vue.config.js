@@ -12,6 +12,7 @@ module.exports = {
                     '@import "@/assets/scss/_mixins.scss";',
             },
         },
+        extract: { ignoreOrder: true },
     },
     ...(!isDev && { publicPath: 'sites/servey/modules/custom/marketplace/marketplace-app/' }),
     configureWebpack: {
@@ -21,6 +22,17 @@ module.exports = {
         //     vuex: 'vuex',
         //     vuetify: 'vuetify',
         // },
+        optimization: {
+            splitChunks: {
+                minSize: 10000,
+                maxSize: 250000,
+            },
+        },
+        performance: {
+            hints: 'warning', // enum
+            maxAssetSize: 1048576, // int (in bytes),
+            maxEntrypointSize: 1048576, // int (in bytes)
+        },
     },
     transpileDependencies: ['vuetify'],
     ...(isDev && {
