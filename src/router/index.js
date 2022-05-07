@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import index from '../views/index';
+//import index from '../views/index';
 const catalog = () => import('../views/catalog');
 const catalogDemand = () => import('../views/catalog/demand');
 const serviceView = () => import('../views/service/view');
@@ -17,7 +17,7 @@ const isDev = process.env.NODE_ENV === 'development';
 
 Vue.use(VueRouter);
 
-const routes = [
+export const routes = [
     {
         path: '/',
         name: 'index',

@@ -1,4 +1,6 @@
 const isDev = process.env.NODE_ENV === 'development';
+require = require('esm')(module);
+const { routes } = require('./src/router/index');
 
 console.log('--isDev', isDev);
 console.log('--VUE_APP_BASE_API_URI', process.env.VUE_APP_BASE_API_URI);
@@ -23,6 +25,13 @@ module.exports = {
         // },
     },
     transpileDependencies: ['vuetify'],
+    pluginOptions: {
+        sitemap: {
+            ...(!isDev && { baseURL: process.env.VUE_APP_BASE_SITEMAP_URI }),
+            routes,
+        },
+        hashMode: true,
+    },
     ...(isDev && {
         devServer: {
             host: '0.0.0.0',
