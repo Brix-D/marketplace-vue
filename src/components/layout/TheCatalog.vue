@@ -14,17 +14,51 @@
                     <BFilters />
                 </div>
             </v-col>
+            <div v-else class="filter__button">
+                <v-btn
+                    icon
+                    large
+                    :ripple="false"
+                    :color="$vuetify.theme.currentTheme.info"
+                    dark
+                    depressed
+                    @click="filtersModal = !filtersModal"
+                >
+                    <v-icon>mdi-filter</v-icon>
+                </v-btn>
+            </div>
         </v-row>
+        <ModalFilters v-model="filtersModal" />
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import BFilters from '@/components/blocks/catalog/BFilters';
+import ModalFilters from '@/components/blocks/modal/ModalFilters';
 import BSearch from '@/components/blocks/header/BSearch';
 
 export default {
     name: 'TheCatalog',
-    components: { BFilters, BSearch },
+    components: { BFilters, BSearch, ModalFilters },
+    data() {
+        return {
+            filtersModal: false,
+        };
+    },
 };
 </script>
+
+<style lang="scss" scoped>
+.filter {
+    &__button {
+        position: fixed;
+        bottom: 48px;
+        right: 16px;
+        z-index: 4;
+        background-color: $color-white;
+        border: 1px solid $color-info;
+        border-radius: 50%;
+    }
+}
+</style>
