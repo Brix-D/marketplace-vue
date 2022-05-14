@@ -22,9 +22,16 @@
                             label="Название компании"
                             outlined
                             hide-details
+                            reqired
                         />
-                        <v-text-field v-model="email" label="Email" outlined hide-details />
-                        <v-text-field v-model="phone" label="Телефон" outlined hide-details />
+                        <v-text-field v-model="email" label="Email" outlined hide-details reqired />
+                        <v-text-field
+                            v-model="phone"
+                            label="Телефон"
+                            outlined
+                            hide-details
+                            reqired
+                        />
                     </div>
                     <div v-if="!LOGGED" class="contact__login">
                         <p class="subtitle-1 my-0">

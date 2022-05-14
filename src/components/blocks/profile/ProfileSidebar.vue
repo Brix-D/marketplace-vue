@@ -32,10 +32,10 @@ export default {
                     name: 'Настройки',
                     to: { name: 'profileSettings' },
                 },
-                {
-                    name: 'Финансы',
-                    to: { name: 'profileFinances' },
-                },
+                // {
+                //     name: 'Финансы',
+                //     to: { name: 'profileFinances' },
+                // },
                 {
                     name: 'Мои объявления',
                     to: { name: 'collectServices' },
