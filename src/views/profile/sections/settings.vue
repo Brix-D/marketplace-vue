@@ -2,14 +2,14 @@
     <div class="settings d-flex flex-column">
         <h2 class="caption font-weight-medium settings__subtitle">Настройки</h2>
         <div class="settings__role mt-4">
-            <span class="font-weight-medium">Роль пользователя:</span>
+            <span class="font-weight-medium">Тип пользователя:</span>
             <span class="d-inline-block ml-4">{{ userRole }}</span>
         </div>
         <div class="user__main mt-4">
             <template>
                 <v-text-field
                     v-model="user.name"
-                    :label="user.isCompany ? 'Название компании' : 'ФИО'"
+                    :label="isCompany ? 'Название компании' : 'ФИО'"
                     outlined
                     hide-details
                     class="mt-5"
@@ -30,7 +30,7 @@
                 />
             </template>
         </div>
-        <div v-if="user.isCompany" class="user__company">
+        <div v-if="isCompany" class="user__company">
             <div class="company__title mt-4">
                 <span class="font-weight-medium">Данные о компании:</span>
             </div>
@@ -41,7 +41,7 @@
                 hide-details
                 class="mt-5"
                 label="Форма собственности"
-                :items="company.forms"
+                :items="companyForms"
             />
             <v-text-field
                 v-model="company.okved"
@@ -82,6 +82,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
     name: 'ProfileFinancesPage',
     metaInfo() {
@@ -90,35 +92,35 @@ export default {
         };
     },
     data() {
-        return {
-            user: {
-                isCompany: true,
-                isPerson: true,
-                name: '',
-                email: '',
-                phone: '',
-            },
-            company: {
-                ogrn: '',
-                okved: '',
-                address: '',
-                certificate: '',
-                ownership: '',
-                forms: ['Частная собсвенность', 'Федеральная собсвенность'],
-            },
-        };
+        return {};
     },
     computed: {
+        ...mapState({
+            user: (state) => state.profile.user,
+            company: (state) => state.profile.company,
+            isCompany: (state) => state.profile.isCompany,
+            isPerson: (state) => state.profile.isPerson,
+            companyForms: (state) => state.profile.companyForms,
+        }),
         userRole() {
             let role = [];
-            if (this.user.isCompany) {
+            if (this.isCompany) {
                 role.push('Компания');
             }
-            if (this.user.isPerson) {
+            if (this.isPerson) {
                 role.push('Частное лицо');
             }
             return role.join(', ');
         },
+    },
+    async created() {
+        await this.GET_CONTACT_DATA();
+    },
+
+    methods: {
+        ...mapActions({
+            GET_CONTACT_DATA: 'profile/GET_CONTACT_DATA',
+        }),
     },
 };
 </script>

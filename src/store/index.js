@@ -5,6 +5,7 @@ import users from './users';
 import token from './token';
 import catalog from './catalog';
 import filters from './filters';
+import profile from './profile';
 import activeService from './active-service';
 import newServices from './new-services';
 
@@ -14,5 +15,5 @@ export default new Vuex.Store({
     state: {},
     mutations: {},
     actions: {},
-    modules: { users, catalog, filters, activeService, newServices, token },
+    modules: { users, catalog, filters, activeService, profile, newServices, token },
 });

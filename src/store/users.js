@@ -14,13 +14,13 @@ export const mutations = {
 
 export const actions = {
     async GET_USER_INFO({ commit }) {
-        const response = await axios.get('/api/v1/user-info', {
-            withCredentials: true,
-            params: {
-                _format: 'json',
-            },
-        });
         if (!isDev) {
+            const response = await axios.get('/api/v1/user-info', {
+                withCredentials: true,
+                params: {
+                    _format: 'json',
+                },
+            });
             console.log('--- user info data', response.data);
             commit('SET_USER_INFO', response.data);
         } else {

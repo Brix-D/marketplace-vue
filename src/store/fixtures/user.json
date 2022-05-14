@@ -2,5 +2,6 @@
   "logged": true,
   "username": "Дмитрий",
   "role": "authenticated",
-  "id": 3
+  "id": 3,
+  "contactdata_id": 24
 }
