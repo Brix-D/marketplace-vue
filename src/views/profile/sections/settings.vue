@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
     name: 'ProfileFinancesPage',
@@ -102,6 +102,9 @@ export default {
             isPerson: (state) => state.profile.isPerson,
             companyForms: (state) => state.profile.companyForms,
         }),
+        ...mapGetters({
+            CONTACT_DATA_ID: 'users/CONTACT_DATA_ID',
+        }),
         userRole() {
             let role = [];
             if (this.isCompany) {
@@ -114,7 +117,7 @@ export default {
         },
     },
     async created() {
-        await this.GET_CONTACT_DATA();
+        await this.GET_CONTACT_DATA({ contactDataId: this.CONTACT_DATA_ID });
     },
 
     methods: {

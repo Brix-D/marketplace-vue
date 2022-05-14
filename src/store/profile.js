@@ -32,22 +32,27 @@ export const mutations = {
 };
 
 export const actions = {
-    async GET_CONTACT_DATA({ commit, dispatch, rootState }) {
-        const contactDataId = rootState.users.user.contactdata_id;
+    async GET_CONTACT_DATA({ commit, dispatch, rootState }, { contactDataId = null }) {
+        //const contactDataId = rootState.users.user.contactdata_id;
         console.log('contactDataId', contactDataId);
+        let response = null;
         if (!!contactDataId) {
             // получаем контакт дату
-            const { data: response } = await axios.get(`/api/v1/onecontactdata/${contactDataId}`, {
+            ({ data: response } = await axios.get(`/api/v1/onecontactdata/${contactDataId}`, {
                 withCredentials: true,
                 params: {
                     _format: 'json',
                 },
-            });
+            }));
             // из-за недосмотра возвращется массив с объектами, берем нулевой элемент
             console.log('contactData', response[0]);
             const { user, company } = prettifyContactData(response[0]);
             commit('SET_USER', user);
             commit('SET_COMPANY', company);
+            // взвращаем респонс, чтобы другой метод стора мог обработать поля с продуктами
+            // данный стор не должен ничего знать о услугах,
+            // а дважды делать запрос плохая практика
+            return response[0];
         } else {
             // ставим контакт дату в пустые значения
             commit('SET_USER', { name: '', email: '', phone: '' });
@@ -58,6 +63,7 @@ export const actions = {
                 certificate: '',
                 ownership: '',
             });
+            return response;
         }
     },
     async SAVE_CONTACT_DATA({ commit, dispatch, rootState, state, rootGetters }) {
@@ -133,6 +139,8 @@ export const actions = {
     },
 };
 
-export const getters = {};
+export const getters = {
+    USER: (state) => state.user,
+};
 
 export default { namespaced: true, state, mutations, actions, getters };

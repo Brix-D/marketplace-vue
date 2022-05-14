@@ -32,6 +32,7 @@ export const actions = {
 
 export const getters = {
     LOGGED: (state) => state.user.logged,
+    CONTACT_DATA_ID: (state) => state.user.contactdata_id,
 };
 
 export default { namespaced: true, state, mutations, actions, getters };

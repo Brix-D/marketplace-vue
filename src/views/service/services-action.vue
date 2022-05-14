@@ -18,15 +18,21 @@
                         <!--                        return-object-->
                         <!--                    />-->
                         <v-text-field
-                            v-model="company"
+                            v-model="USER.name"
                             label="Название компании"
                             outlined
                             hide-details
                             reqired
                         />
-                        <v-text-field v-model="email" label="Email" outlined hide-details reqired />
                         <v-text-field
-                            v-model="phone"
+                            v-model="USER.email"
+                            label="Email"
+                            outlined
+                            hide-details
+                            reqired
+                        />
+                        <v-text-field
+                            v-model="USER.phone"
                             label="Телефон"
                             outlined
                             hide-details
@@ -129,9 +135,6 @@ export default {
     components: { NewServiceList },
     data() {
         return {
-            company: '',
-            email: '',
-            phone: '',
             activeTab: 0,
             bundles: [
                 {
@@ -163,6 +166,7 @@ export default {
         }),
         ...mapGetters({
             LOGGED: 'users/LOGGED',
+            USER: 'profile/USER',
             SUGGESTION: 'newServices/SUGGESTION',
             CURRENT: 'newServices/CURRENT',
         }),
@@ -171,14 +175,8 @@ export default {
         await this.getSuggestionServices();
     },
     methods: {
-        ...mapMutations({
-            UPDATE_SERVICE_ID: 'newServices/UPDATE_SERVICE_ID',
-        }),
         ...mapActions({
             GET_SUGGESTION_SERVICES: 'newServices/GET_SUGGESTION_SERVICES',
-            CREATE_SERVICE: 'newServices/CREATE_SERVICE',
-            CREATE_CONTACT_DATA: 'newServices/CREATE_CONTACT_DATA',
-            CREATE_SERVICE_VARIATION: 'newServices/CREATE_SERVICE_VARIATION',
         }),
 
         isServiceExists(catalog, service) {
@@ -188,49 +186,7 @@ export default {
         },
 
         async onSave() {
-            for (let bundle of this.bundles) {
-                for (let type of this.typeData) {
-                    for (let [index, item] of Object.entries(
-                        this.CURRENT(bundle.value, type.value)
-                    )) {
-                        if (
-                            !this.isServiceExists(this.SUGGESTION(bundle.value, type.value), item)
-                        ) {
-                            const id = await this.CREATE_SERVICE({
-                                bundle: bundle.value,
-                                title: item.title,
-                                description: item.description,
-                                price: item.price,
-                                categoryId: item.categoryId,
-                                type: type.verbose,
-                            });
-                            if (!!id) {
-                                this.UPDATE_SERVICE_ID({
-                                    bundle: bundle.value,
-                                    listName: type.value,
-                                    index,
-                                    id,
-                                });
-                                await this.CREATE_SERVICE_VARIATION({
-                                    bundle: bundle.value,
-                                    article: performance.now().toFixed(0),
-                                    title: item.title,
-                                    productId: id,
-                                    price: item.price,
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-
-            await this.CREATE_CONTACT_DATA({
-                company: this.company,
-                email: this.email,
-                phone: this.phone,
-            });
-
-            await this.$router.push({ name: 'catalog' });
+            throw 'Метод onSave должен быть реализован';
         },
         async getSuggestionServices() {
             this.bundles.forEach((bundle) => {

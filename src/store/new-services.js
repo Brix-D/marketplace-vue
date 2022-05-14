@@ -76,6 +76,50 @@ export const actions = {
         });
         commit('SET_SUGGESTION', { bundle: typeBundle, type: typeCatalog, data: result });
     },
+    async GET_SERVICES({ commit, dispatch, rootGetters }, { contactDataId }) {
+        const response = await dispatch(
+            'profile/GET_CONTACT_DATA',
+            { contactDataId },
+            { root: true }
+        );
+        let resultOffer = {
+            service: [],
+            goods: [],
+        };
+        let resultDemand = {
+            service: [],
+            goods: [],
+        };
+        if (!!response) {
+            const { products_offer: productsOffer, products_demand: productsDemand } = response;
+
+            productsOffer.forEach((product) => {
+                const prettifiedProduct = prettifyService(product, contactDataId);
+                if (prettifiedProduct.type === 'Услуга') {
+                    resultOffer.service.push(prettifiedProduct);
+                } else if (prettifiedProduct.type === 'Товар') {
+                    resultOffer.goods.push(prettifiedProduct);
+                }
+            });
+            // делаем рокировку массивов, вложенный становится высшим, а высший вложенным
+            productsDemand.forEach((product) => {
+                const prettifiedProduct = prettifyService(product, contactDataId);
+                if (prettifiedProduct.type === 'Услуга') {
+                    resultDemand.service.push(prettifiedProduct);
+                } else if (prettifiedProduct.type === 'Товар') {
+                    resultDemand.goods.push(prettifiedProduct);
+                }
+            });
+        }
+        commit('SET_CURRENT', { bundle: 'service', type: 'offer', data: resultOffer.service });
+        commit('SET_CURRENT', { bundle: 'goods', type: 'offer', data: resultOffer.goods });
+        commit('SET_CURRENT', {
+            bundle: 'service',
+            type: 'demand',
+            data: resultDemand.service,
+        });
+        commit('SET_CURRENT', { bundle: 'goods', type: 'demand', data: resultDemand.goods });
+    },
     async CREATE_SERVICE(
         { commit, rootGetters, dispatch },
         { bundle, title, description, type, price, categoryId }
