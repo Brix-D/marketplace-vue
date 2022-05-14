@@ -175,7 +175,7 @@ export default {
                 // },
                 {
                     name: 'Разместить продукты',
-                    to: { name: 'collectServices' },
+                    to: { name: 'createServices' },
                 },
             ],
             authMenu: [

@@ -37,8 +37,8 @@ export default {
                 //     to: { name: 'profileFinances' },
                 // },
                 {
-                    name: 'Мои объявления',
-                    to: { name: 'collectServices' },
+                    name: 'Мои продукты',
+                    to: { name: 'editServices' },
                 },
             ],
         };

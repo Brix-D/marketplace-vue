@@ -4,13 +4,14 @@ import index from '../views/index';
 const catalog = () => import('../views/catalog');
 const catalogDemand = () => import('../views/catalog/demand');
 const serviceView = () => import('../views/service/view');
-const serviceCreate = () => import('../views/service/create');
+const serviceCreate = () => import('../views/service/createOld');
 
 const profile = () => import('../views/profile/index');
 const profileSettings = () => import('../views/profile/sections/settings');
 const profileFinances = () => import('../views/profile/sections/finances');
 const profileReviews = () => import('../views/profile/sections/reviews');
-const collectServices = () => import('../views/collect-services');
+const createServices = () => import('../views/service/create.js');
+const editServices = () => import('../views/service/edit.js');
 
 const testColors = () => import('../views/test-colors');
 const isDev = process.env.NODE_ENV === 'development';
@@ -36,15 +37,20 @@ const routes = [
         component: catalogDemand,
         //meta: { title: 'Каталог потребностей | ' + appName },
     },
+    // {
+    //     path: '/service/create',
+    //     name: 'serviceCreate',
+    //     component: serviceCreate,
+    // },
     {
         path: '/service/create',
-        name: 'serviceCreate',
-        component: serviceCreate,
+        name: 'createServices',
+        component: createServices,
     },
     {
-        path: '/service/collect',
-        name: 'collectServices',
-        component: collectServices,
+        path: '/service/edit',
+        name: 'editServices',
+        component: editServices,
     },
     {
         path: '/service/:id/:contactId',

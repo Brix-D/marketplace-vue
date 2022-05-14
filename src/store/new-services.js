@@ -81,7 +81,7 @@ export const actions = {
         { bundle, title, description, type, price, categoryId }
     ) {
         if (!rootGetters['token/CSRF_TOKEN']) {
-            dispatch('token/GET_CSRF', null, { root: true });
+            await dispatch('token/GET_CSRF', null, { root: true });
         }
         let bundleField;
         let categoryField;
@@ -148,7 +148,7 @@ export const actions = {
         { bundle, article, productId, price, title }
     ) {
         if (!rootGetters['token/CSRF_TOKEN']) {
-            dispatch('token/GET_CSRF', null, { root: true });
+            await dispatch('token/GET_CSRF', null, { root: true });
         }
         let bundleField;
         switch (bundle) {
