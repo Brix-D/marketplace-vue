@@ -36,7 +36,11 @@ export default {
                         this.CURRENT(bundle.value, type.value)
                     )) {
                         if (
-                            !this.isServiceExists(this.SUGGESTION(bundle.value, type.value), item)
+                            !this.isServiceExists(
+                                this.SUGGESTION(bundle.value, type.value),
+                                item
+                            ) ||
+                            item.hasChanged
                         ) {
                             const id = await this.CREATE_SERVICE({
                                 bundle: bundle.value,

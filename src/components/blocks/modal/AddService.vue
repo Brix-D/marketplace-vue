@@ -62,6 +62,9 @@ export default {
         ...mapState({
             CATEGORIES: (state) => state.newServices.categories,
         }),
+        isServiceChanged() {
+            return JSON.stringify(this.localItem) !== JSON.stringify(this.item);
+        },
         categorySuggestion() {
             return this.CATEGORIES.map((category) => {
                 return {
@@ -77,7 +80,8 @@ export default {
     },
     methods: {
         onSubmit(event) {
-            this.$emit('save', event);
+            const hasChanged = this.isServiceChanged;
+            this.$emit('save', { ...event, hasChanged });
             this.modal = false;
         },
     },
