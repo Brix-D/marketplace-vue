@@ -15,6 +15,7 @@
                                     depressed
                                     large
                                     :ripple="false"
+                                    @click="onSave()"
                                 >
                                     Сохранить
                                 </v-btn>
@@ -32,6 +33,7 @@
 
 <script>
 import ProfileSidebar from '@/components/blocks/profile/ProfileSidebar';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'ProfileSettingsPage',
@@ -40,6 +42,15 @@ export default {
         return {
             title: 'Профиль | servey',
         };
+    },
+    methods: {
+        ...mapActions({
+            SAVE_CONTACT_DATA: 'profile/SAVE_CONTACT_DATA',
+        }),
+        async onSave() {
+            await this.SAVE_CONTACT_DATA();
+            this.messageSuccess('Успешно сохранено');
+        },
     },
 };
 </script>

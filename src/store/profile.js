@@ -34,7 +34,6 @@ export const mutations = {
 export const actions = {
     async GET_CONTACT_DATA({ commit, dispatch, rootState }) {
         const contactDataId = rootState.users.user.contactdata_id;
-        console.log('user', rootState.users.user);
         console.log('contactDataId', contactDataId);
         if (!!contactDataId) {
             // получаем контакт дату
@@ -60,6 +59,77 @@ export const actions = {
                 ownership: '',
             });
         }
+    },
+    async SAVE_CONTACT_DATA({ commit, dispatch, rootState, state, rootGetters }) {
+        const contactDataId = rootState.users.user.contactdata_id;
+        if (!rootGetters['token/CSRF_TOKEN']) {
+            await dispatch('token/GET_CSRF', null, { root: true });
+        }
+        const token = rootGetters['token/CSRF_TOKEN'];
+        const config = {
+            withCredentials: true,
+            params: {
+                _format: 'json',
+            },
+            headers: {
+                'X-CSRF-Token': token,
+            },
+        };
+        const data = {
+            bundle: [
+                {
+                    target_id: 'predpriyatie',
+                    target_type: 'contactdata_type',
+                },
+            ],
+            title: [
+                {
+                    value: state.user.name,
+                },
+            ],
+            field_phone: [
+                {
+                    value: state.user.phone,
+                },
+            ],
+            field_email: [
+                {
+                    value: state.user.email,
+                },
+            ],
+            field_ogrn: [
+                {
+                    value: state.company.ogrn,
+                },
+            ],
+            field_okved: [
+                {
+                    value: state.company.okved,
+                },
+            ],
+            field_ownership: [
+                {
+                    value: state.company.ownership,
+                },
+            ],
+            field_address: [
+                {
+                    value: state.company.address,
+                },
+            ],
+            field_certificate: [
+                {
+                    value: state.company.certificate,
+                },
+            ],
+        };
+        let response;
+        if (!!contactDataId) {
+            ({ data: response } = await axios.patch(`/contactdata/${contactDataId}`, data, config));
+        } else {
+            ({ data: response } = await axios.post('/entity/contactdata', data, config));
+        }
+        console.log('save response', response);
     },
 };
 
