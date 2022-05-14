@@ -1,5 +1,5 @@
 import { axios } from '@/plugins/axios';
-import { prettifyService } from '@/utils';
+import { prettifyProductIds, prettifyService } from '@/utils';
 
 export const state = () => ({
     categories: [],
@@ -201,69 +201,71 @@ export const actions = {
             },
         });
     },
-    async CREATE_CONTACT_DATA({ commit, dispatch, rootGetters, state }, { company, email, phone }) {
-        if (!rootGetters['token/CSRF_TOKEN']) {
-            dispatch('token/GET_CSRF', null, { root: true });
-        }
-        const token = rootGetters['token/CSRF_TOKEN'];
-        let offerIds = [];
-        let demandIds = [];
-        Object.keys(state.items).forEach((bundle) => {
-            Object.keys(state.items[bundle]).forEach((type) => {
-                state.items[bundle][type].forEach((item) => {
-                    if (type === 'offer') {
-                        offerIds.push({ target_id: item.id });
-                    }
-                    if (type === 'demand') {
-                        demandIds.push({ target_id: item.id });
-                    }
-                });
-            });
-        });
+    PREPARE_CONTACT_DATA({ state }, { company, email, phone }) {
+        const { offerIds, demandIds } = prettifyProductIds(state.items);
         console.log('offerIds', offerIds);
         console.log('demandIds', demandIds);
-        // state.items.forEach((bundle) => {
-        //     bundle.forEach((type) => {
-        //         demandIds.push({ target_id: service.id });
-        //     });
-        // });
-        await axios.post(
-            '/entity/contactdata',
-            {
-                title: [
-                    {
-                        value: company,
-                    },
-                ],
-                field_email: [
-                    {
-                        value: email,
-                    },
-                ],
-                field_phone: [
-                    {
-                        value: phone,
-                    },
-                ],
-                bundle: [
-                    {
-                        target_id: 'predpriyatie',
-                        target_type: 'contactdata_type',
-                    },
-                ],
-                field_potrebnosti: demandIds,
-                field_predlozhenie: offerIds,
+        return {
+            title: [
+                {
+                    value: company,
+                },
+            ],
+            field_email: [
+                {
+                    value: email,
+                },
+            ],
+            field_phone: [
+                {
+                    value: phone,
+                },
+            ],
+            bundle: [
+                {
+                    target_id: 'predpriyatie',
+                    target_type: 'contactdata_type',
+                },
+            ],
+            field_potrebnosti: demandIds,
+            field_predlozhenie: offerIds,
+        };
+    },
+    async CREATE_CONTACT_DATA({ commit, dispatch, rootGetters, state }, { company, email, phone }) {
+        if (!rootGetters['token/CSRF_TOKEN']) {
+            await dispatch('token/GET_CSRF', null, { root: true });
+        }
+        const token = rootGetters['token/CSRF_TOKEN'];
+        const data = await dispatch('PREPARE_CONTACT_DATA', { company, email, phone });
+        console.log('data on create', data);
+        await axios.post('/entity/contactdata', data, {
+            withCredentials: true,
+            headers: {
+                'X-CSRF-Token': token,
             },
-            {
-                withCredentials: true,
-                headers: {
-                    'X-CSRF-Token': token,
-                },
-                params: {
-                    _format: 'json',
-                },
-            }
-        );
+            params: {
+                _format: 'json',
+            },
+        });
+    },
+    async EDIT_CONTACT_DATA(
+        { commit, dispatch, rootGetters, state },
+        { contactDataId, company, email, phone }
+    ) {
+        if (!rootGetters['token/CSRF_TOKEN']) {
+            await dispatch('token/GET_CSRF', null, { root: true });
+        }
+        const token = rootGetters['token/CSRF_TOKEN'];
+        const data = await dispatch('PREPARE_CONTACT_DATA', { company, email, phone });
+        await axios.patch(`/contactdata/${contactDataId}`, data, {
+            withCredentials: true,
+            headers: {
+                'X-CSRF-Token': token,
+            },
+            params: {
+                _format: 'json',
+            },
+        });
     },
 };
 export const getters = {
