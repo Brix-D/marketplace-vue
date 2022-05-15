@@ -3,7 +3,10 @@
         <v-row dense>
             <v-col cols="12">
                 <h1 class="h2">Разместите ваши товары, услуги и предложения</h1>
-                <div class="mt-4 contact__wrapper pa-4 rounded-lg d-flex justify-space-between">
+                <div
+                    class="mt-4 contact__wrapper pa-4 rounded-lg d-flex justify-space-between"
+                    :class="{ 'flex-column': $vuetify.breakpoint.mobile }"
+                >
                     <div
                         class="contact__info"
                         :class="{ 'contact__info--limited': !$vuetify.breakpoint.mobile }"
@@ -23,6 +26,7 @@
                             outlined
                             hide-details
                             reqired
+                            :disabled="!LOGGED"
                         />
                         <v-text-field
                             v-model="USER.email"
@@ -30,6 +34,7 @@
                             outlined
                             hide-details
                             reqired
+                            :disabled="!LOGGED"
                         />
                         <v-text-field
                             v-model="USER.phone"
@@ -37,9 +42,14 @@
                             outlined
                             hide-details
                             reqired
+                            :disabled="!LOGGED"
                         />
                     </div>
-                    <div v-if="!LOGGED" class="contact__login">
+                    <div
+                        v-if="!LOGGED"
+                        class="contact__login"
+                        :class="{ 'contact__info--limited': !$vuetify.breakpoint.mobile }"
+                    >
                         <p class="subtitle-1 my-0">
                             Для размещения объявлений необходимо зарегистрироватся
                         </p>
@@ -217,10 +227,13 @@ export default {
     }
     &__login {
         align-self: center;
-        width: 32%;
+
         display: grid;
         row-gap: 16px;
         justify-content: end;
+        &--limited {
+            width: 32%;
+        }
     }
 }
 .services {
