@@ -13,14 +13,14 @@
                 />
             </div>
         </div>
-        <v-btn
-            :color="$vuetify.theme.currentTheme.info"
-            dark
-            class="rounded-lg align-self-center"
-            @click="applyFilters"
-        >
-            Применить
-        </v-btn>
+        <!--        <v-btn-->
+        <!--            :color="$vuetify.theme.currentTheme.info"-->
+        <!--            dark-->
+        <!--            class="rounded-lg align-self-center"-->
+        <!--            @click="applyFilters"-->
+        <!--        >-->
+        <!--            Применить-->
+        <!--        </v-btn>-->
     </aside>
 </template>
 <script>
@@ -63,6 +63,7 @@ export default {
             } else {
                 this.$delete(this.selectedFilters, groupName);
             }
+            this.applyFilters();
         },
         applyFilters() {
             this.APPLY_FILTERS(this.selectedFilters);
